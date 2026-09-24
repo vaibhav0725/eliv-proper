@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { ServicesHero } from "@/components/services-hero";
+import { ServicesLogistics } from "@/components/services-logistics";
+import { ServicesScroll } from "@/components/services-scroll";
+import { ServicesTechnology } from "@/components/services-technology";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -7,5 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <ServicesHero />;
+  return (
+    <>
+      <ServicesHero />
+      <ServicesTechnology />
+      <ServicesLogistics />
+      <ServicesScroll />
+    </>
+  );
 }
