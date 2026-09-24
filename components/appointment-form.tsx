@@ -18,7 +18,7 @@ const reasons = [
 ];
 
 const fieldClass =
-  "w-full border-b border-black/15 bg-transparent py-2 text-sm text-neutral-950 outline-none";
+  "mt-2 w-full border border-black/10 bg-white px-3 py-3 text-sm text-neutral-950 outline-none transition-colors focus:border-neutral-950";
 
 export function AppointmentForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -39,38 +39,32 @@ export function AppointmentForm() {
         setSubmitted(true);
       }}
     >
-      <h2 className="text-2xl font-bold tracking-tight uppercase sm:text-[1.7rem]">
-        Book an appointment
-      </h2>
-      <p className="mt-3 max-w-md text-sm leading-6 text-neutral-800">
-        Use the form below to tell us about your enquiry and we’ll call you
-        back to schedule an appointment. Our general response time is within
-        one business day.
-      </p>
-
-      <fieldset className="mt-8">
-        <legend className="text-sm font-semibold">Reason of enquiry</legend>
-        <div className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+      <fieldset>
+        <legend className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
+          Reason of enquiry
+        </legend>
+        <div className="mt-4 flex flex-wrap gap-2">
           {reasons.map((reason, index) => (
-            <label
-              key={reason}
-              className="flex items-start gap-2.5 text-sm leading-snug"
-            >
+            <label key={reason} className="cursor-pointer">
               <input
                 type="radio"
                 name="reason"
                 value={reason}
                 required={index === 0}
-                className="mt-0.5 size-4 shrink-0 accent-neutral-950"
+                className="peer sr-only"
               />
-              {reason}
+              <span className="block border border-black/10 px-3 py-2 text-xs tracking-wide text-neutral-700 transition-colors peer-checked:border-neutral-950 peer-checked:bg-neutral-950 peer-checked:text-white hover:border-neutral-950">
+                {reason}
+              </span>
             </label>
           ))}
         </div>
       </fieldset>
 
-      <fieldset className="mt-10 border-t border-black/10 pt-8">
-        <legend className="text-sm font-semibold">Your information</legend>
+      <fieldset className="mt-10">
+        <legend className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
+          Your information
+        </legend>
         <div className="mt-6 grid gap-x-10 gap-y-6 sm:grid-cols-2">
           <label className="grid gap-1 text-sm text-zinc-500">
             Your full name

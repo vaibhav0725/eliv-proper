@@ -71,6 +71,25 @@ body {
   animation: careers-step 420ms ease;
 }
 
+.globe-label {
+  position: absolute;
+  bottom: anchor(top);
+  left: anchor(center);
+  translate: -50% -8px;
+}
+
+.globe-label[hidden],
+.globe-vehicle[hidden] {
+  display: none;
+}
+
+.globe-vehicle {
+  position: absolute;
+  top: anchor(center);
+  left: anchor(center);
+  translate: -50% -50%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .footer-marquee-track,
   .careers-step {
