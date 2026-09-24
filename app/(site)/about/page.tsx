@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { PageIntro } from "@/components/page-intro";
+import { AboutHero } from "@/components/about-hero";
+import { AboutManifesto } from "@/components/about-manifesto";
+import { AboutPrinciples } from "@/components/about-principles";
+import { AboutStory } from "@/components/about-story";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Learn about Eli.",
+  description:
+    "United Carriers keeps every freight file with one team, from the first booking to proof of delivery across Australia, New Zealand, Hong Kong, and China.",
 };
 
 export default function AboutPage() {
   return (
-    <PageIntro
-      title="About"
-      description="Who we are, what we stand for, and how we work."
-    />
+    <>
+      <AboutHero />
+      <AboutManifesto />
+      <AboutStory />
+      <AboutPrinciples />
+    </>
   );
 }
