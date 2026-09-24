@@ -1,3 +1,6 @@
+import { FaqSection } from "@/components/faq-section";
+import { IndustryMoving } from "@/components/industry-moving";
+import { MoveSmarter } from "@/components/move-smarter";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -14,6 +17,9 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <main id="main" className="flex-1">
         {children}
       </main>
+      <IndustryMoving />
+      <FaqSection />
+      <MoveSmarter />
       <SiteFooter />
     </div>
   );

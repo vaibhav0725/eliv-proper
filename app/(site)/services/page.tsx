@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { PageIntro } from "@/components/page-intro";
+import { ServicesHero } from "@/components/services-hero";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Services offered by Eli.",
+  description: "Global supply chain coverage, freight, and logistics.",
 };
 
 export default function ServicesPage() {
-  return (
-    <PageIntro
-      title="Services"
-      description="The work we do and how we help clients."
-    />
-  );
+  return <ServicesHero />;
 }
