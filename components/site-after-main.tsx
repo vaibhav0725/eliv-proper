@@ -8,6 +8,10 @@ import { MoveSmarter } from "@/components/move-smarter";
 export function SiteAfterMain() {
   const pathname = usePathname();
   const isContact = pathname === "/contact" || pathname.startsWith("/contact/");
+  const isIndustries =
+    pathname === "/industries" || pathname.startsWith("/industries/");
+
+  if (isIndustries) return null;
 
   return (
     <>
