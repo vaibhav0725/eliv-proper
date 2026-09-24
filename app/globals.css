@@ -56,8 +56,24 @@ body {
   animation: footer-marquee 42s linear infinite;
 }
 
+@keyframes careers-step {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.careers-step {
+  animation: careers-step 420ms ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .footer-marquee-track {
+  .footer-marquee-track,
+  .careers-step {
     animation: none;
   }
 }

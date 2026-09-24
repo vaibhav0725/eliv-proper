@@ -10,8 +10,9 @@ export function SiteAfterMain() {
   const isContact = pathname === "/contact" || pathname.startsWith("/contact/");
   const isIndustries =
     pathname === "/industries" || pathname.startsWith("/industries/");
+  const isCareers = pathname === "/careers" || pathname.startsWith("/careers/");
 
-  if (isIndustries) return null;
+  if (isIndustries || isCareers) return null;
 
   return (
     <>
