@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Text3DFlip from "@/components/ui/text-3d-flip";
 import { navItems } from "@/lib/nav";
 
 function isActive(pathname: string, href: string) {
@@ -37,13 +38,15 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 ${
-        dark
-          ? "bg-black text-white"
-          : "border-b border-black/8 bg-[#f7f6f3]/90 text-neutral-950 backdrop-blur-md"
-      }`}
+      className={`sticky top-0 z-40 ${dark ? "bg-black text-white" : "text-neutral-950"}`}
     >
-      <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-10 lg:px-14">
+      <div
+        className={`relative z-50 mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-10 lg:px-14 ${
+          dark
+            ? "bg-black"
+            : "border-b border-black/8 bg-[#f7f6f3]"
+        }`}
+      >
         <Link href="/" className="relative z-50 flex items-center" aria-label="ELIV Logistics">
           <Image
             src="/logo.png"
@@ -63,7 +66,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-[11px] font-medium tracking-[0.18em] uppercase transition-opacity ${
+                className={`inline-flex flex-col items-center gap-1.5 text-[11px] font-medium tracking-[0.18em] uppercase transition-opacity ${
                   active
                     ? "opacity-100"
                     : dark
@@ -71,15 +74,19 @@ export function SiteHeader() {
                       : "text-neutral-500 hover:text-neutral-950"
                 }`}
               >
-                <span
-                  className={
-                    active
-                      ? "border-b border-current pb-1"
-                      : "pb-1"
-                  }
+                <Text3DFlip
+                  as="span"
+                  rotateDirection="top"
+                  staggerDuration={0.03}
                 >
                   {item.label}
-                </span>
+                </Text3DFlip>
+                <span
+                  aria-hidden
+                  className={`h-0.5 w-3 rounded-full ${
+                    active ? "bg-[#f97316]" : "bg-transparent"
+                  }`}
+                />
               </Link>
             );
           })}
@@ -94,7 +101,13 @@ export function SiteHeader() {
                 : "bg-neutral-950 text-white"
             }`}
           >
-            Get a quote
+            <Text3DFlip
+              as="span"
+              rotateDirection="top"
+              staggerDuration={0.03}
+            >
+              Get a quote
+            </Text3DFlip>
           </Link>
           <button
             type="button"
@@ -124,7 +137,7 @@ export function SiteHeader() {
         <nav
           id="mobile-nav"
           aria-label="Mobile"
-          className={`fixed inset-0 z-40 flex flex-col justify-end px-6 pt-24 pb-10 md:hidden ${
+          className={`fixed inset-0 z-40 flex h-dvh w-full flex-col justify-start px-6 pt-20 pb-10 md:hidden ${
             dark ? "bg-black text-white" : "bg-[#f7f6f3] text-neutral-950"
           }`}
         >
@@ -132,16 +145,24 @@ export function SiteHeader() {
             {navItems.map((item, index) => {
               const active = isActive(pathname, item.href);
               return (
-                <li key={item.href} className="border-t border-current/15">
+                <li
+                  key={item.href}
+                  className={index === 0 ? "" : "border-t border-current/15"}
+                >
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className="flex items-baseline justify-between py-4"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="text-[clamp(2.4rem,10vw,3.4rem)] leading-none font-bold tracking-[-0.04em] uppercase">
+                    <Text3DFlip
+                      as="span"
+                      rotateDirection="top"
+                      staggerDuration={0.02}
+                      className="text-[clamp(2.4rem,10vw,3.4rem)] leading-none font-bold tracking-[-0.04em] uppercase"
+                    >
                       {item.label}
-                    </span>
+                    </Text3DFlip>
                     <span className="text-[11px] tracking-[0.16em] opacity-40">
                       0{index + 1}
                     </span>
@@ -157,7 +178,13 @@ export function SiteHeader() {
             }`}
             onClick={() => setOpen(false)}
           >
-            Get a quote
+            <Text3DFlip
+              as="span"
+              rotateDirection="top"
+              staggerDuration={0.03}
+            >
+              Get a quote
+            </Text3DFlip>
           </Link>
         </nav>
       ) : null}
