@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,15 +44,15 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-10 lg:px-14">
-        <Link
-          href="/"
-          className="relative z-50 flex items-center gap-2.5 text-[15px] font-semibold tracking-[0.22em]"
-        >
-          <span
-            aria-hidden
-            className="inline-block size-2 bg-[#f97316]"
+        <Link href="/" className="relative z-50 flex items-center" aria-label="ELIV Logistics">
+          <Image
+            src="/logo.png"
+            alt=""
+            width={554}
+            height={518}
+            priority
+            className="h-11 w-auto"
           />
-          ELIV
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">

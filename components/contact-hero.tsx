@@ -14,7 +14,7 @@ const pins = [
 export function ContactHero() {
   return (
     <section className="bg-white text-neutral-950">
-      <div className="relative mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[1440px] flex-col px-6 pt-8 pb-10 sm:px-10 lg:px-14">
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col px-6 pt-8 pb-4 sm:px-10 lg:px-14">
         <div className="flex justify-end">
           <Link
             href="/careers"
@@ -24,7 +24,7 @@ export function ContactHero() {
           </Link>
         </div>
 
-        <div className="grid flex-1 items-center gap-8 py-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:py-6">
+        <div className="grid items-center gap-8 py-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:py-6">
           <div className="max-w-3xl lg:pl-[6%]">
             <h1 className="text-[clamp(4.6rem,9.2vw,8.4rem)] leading-[0.82] font-black tracking-[-0.05em] uppercase">
               Get
@@ -64,15 +64,6 @@ export function ContactHero() {
               />
             ))}
           </div>
-        </div>
-
-        <div>
-          <p className="text-[10px] font-medium tracking-[0.16em] text-zinc-400 uppercase">
-            Hotline
-          </p>
-          <a href="tel:1300000082" className="mt-1.5 block text-sm font-medium">
-            1300 000 082
-          </a>
         </div>
       </div>
     </section>

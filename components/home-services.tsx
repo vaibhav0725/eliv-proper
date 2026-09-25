@@ -27,21 +27,6 @@ const services = [
   },
 ];
 
-const milestones = [
-  {
-    title: "Real-time freight tracking",
-    body: "Know exactly where your cargo is at every milestone. Live visibility means faster decisions and zero guesswork.",
-  },
-  {
-    title: "Global network coverage",
-    body: "From APAC lanes to international corridors, our partner network spans every major trade route your business relies on.",
-  },
-  {
-    title: "24/7 customer support",
-    body: "Real people, always available. Whether it is a routine update or an urgent issue, we pick up the phone and we own the outcome.",
-  },
-];
-
 export function HomeServices() {
   return (
     <section className="bg-white text-neutral-950">
@@ -87,29 +72,6 @@ export function HomeServices() {
         >
           Our services
         </Link>
-      </div>
-
-      <div className="bg-neutral-950 text-white">
-        <div className="mx-auto w-full max-w-[1440px] px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
-          <h2 className="max-w-xl text-[clamp(2.4rem,5vw,4.4rem)] leading-[0.9] font-bold tracking-[-0.045em] uppercase">
-            Reliability at every milestone
-          </h2>
-          <p className="mt-6 max-w-md text-sm leading-6 text-white/70">
-            With every service under one roof and one accountable team, your
-            supply chain moves the way your business demands: predictably,
-            transparently, and without excuses.
-          </p>
-          <ul className="mt-12 grid gap-10 sm:grid-cols-3">
-            {milestones.map((item) => (
-              <li key={item.title}>
-                <h3 className="text-base font-medium tracking-tight uppercase">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-white/70">{item.body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

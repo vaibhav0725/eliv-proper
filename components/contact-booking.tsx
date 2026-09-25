@@ -34,7 +34,7 @@ const locations = [
 export function ContactBooking() {
   return (
     <section className="bg-white text-neutral-950">
-      <div className="mx-auto w-full max-w-[1440px] px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
+      <div className="mx-auto w-full max-w-[1440px] px-6 pt-4 pb-16 sm:px-10 lg:px-14 lg:pt-6 lg:pb-24">
         <div className="flex flex-col gap-8 border-b border-neutral-950/15 pb-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
