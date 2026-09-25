@@ -192,7 +192,7 @@ export function HomeGlobe() {
   }, []);
 
   return (
-    <div className="pointer-events-auto absolute top-1/2 right-[-6%] aspect-square w-[min(78vh,820px)] -translate-y-1/2 lg:right-[-2%]">
+    <div className="pointer-events-auto absolute top-1/2 right-[-18%] z-0 aspect-square w-[min(118vh,1280px)] -translate-y-[46%] sm:right-[-10%] lg:right-[-6%]">
       <canvas
         ref={canvasRef}
         className="h-full w-full cursor-grab touch-none active:cursor-grabbing"

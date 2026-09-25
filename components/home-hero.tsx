@@ -31,22 +31,22 @@ export function HomeHero() {
 
       <HomeGlobe />
 
-      <div className="relative z-10 flex flex-1 flex-col justify-center px-6 py-16 sm:px-10 lg:max-w-[52%] lg:px-16">
-        <p className="text-[12px] font-medium tracking-[0.22em] uppercase">
+      <div className="relative z-10 flex flex-1 flex-col justify-end px-6 pt-10 pb-8 sm:px-10 lg:max-w-[46%] lg:px-16 lg:pb-10">
+        <p className="text-[12px] font-medium tracking-[0.22em] text-white/70 uppercase">
           One operator
         </p>
-        <h1 className="mt-4 text-[clamp(3.2rem,6.2vw,5.6rem)] leading-[0.86] font-bold tracking-[-0.04em] uppercase">
+        <h1 className="mt-4 text-[clamp(3.6rem,7vw,6.4rem)] leading-[0.84] font-bold tracking-[-0.045em] uppercase">
           Every
           <br />
           leg of the
           <br />
           journey
         </h1>
-        <p className="mt-6 max-w-[16rem] text-[13px] leading-5 text-white/75">
+        <p className="mt-6 max-w-xs text-[14px] leading-6 text-white/75">
           Freight forwarding, land transport, and customs brokerage, unified
           across APAC under one accountable team.
         </p>
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/contact"
             className="inline-flex h-11 items-center rounded-full bg-white px-6 text-[11px] font-semibold tracking-[0.16em] text-black uppercase"
@@ -60,6 +60,11 @@ export function HomeHero() {
             Our services
           </Link>
         </div>
+      </div>
+
+      <div className="relative z-10 flex items-center justify-between gap-6 border-t border-white/15 px-6 py-3 text-[10px] tracking-[0.18em] text-white/55 uppercase sm:px-10 lg:px-16">
+        <p>Australia · New Zealand · Hong Kong · China</p>
+        <p className="hidden sm:block">Drag the globe</p>
       </div>
     </section>
   );
