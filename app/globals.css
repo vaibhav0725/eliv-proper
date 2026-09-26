@@ -95,4 +95,13 @@ body {
   .careers-step {
     animation: none;
   }
+
+  .yard-track {
+    height: auto;
+  }
+
+  .yard-stage {
+    position: relative;
+    height: 100svh;
+  }
 }
