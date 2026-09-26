@@ -18,7 +18,7 @@ export function AboutHero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[calc(100svh-4rem)] overflow-hidden text-white"
+      className="relative min-h-svh overflow-hidden text-white"
     >
       <motion.div
         aria-hidden
@@ -36,7 +36,7 @@ export function AboutHero() {
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/15" />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[1440px] items-center px-6 py-16 sm:px-10 lg:px-14">
+      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-[1440px] items-center px-6 py-16 sm:px-10 lg:px-14">
         <div className="max-w-4xl">
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 12 }}

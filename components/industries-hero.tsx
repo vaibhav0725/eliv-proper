@@ -1,6 +1,6 @@
 export function IndustriesHero() {
   return (
-    <section className="relative h-[calc(100svh-4rem)] min-h-[560px] overflow-hidden bg-black text-white">
+    <section className="relative h-svh min-h-[560px] overflow-hidden bg-black text-white">
       <video
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay

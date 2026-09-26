@@ -3,7 +3,7 @@ const strip =
 
 export function ServicesHero() {
   return (
-    <section className="relative flex h-[calc(100svh-4.25rem)] min-h-[560px] flex-col justify-end overflow-hidden bg-black text-white">
+    <section className="relative flex h-svh min-h-[560px] flex-col justify-end overflow-hidden bg-black text-white">
       <video
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay

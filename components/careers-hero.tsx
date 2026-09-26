@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function CareersHero() {
   return (
-    <section className="relative h-[calc(100svh-4rem)] min-h-[560px] overflow-hidden bg-black text-white">
+    <section className="relative h-svh min-h-[560px] overflow-hidden bg-black text-white">
       <Image
         src="/careers-hero.webp"
         alt=""

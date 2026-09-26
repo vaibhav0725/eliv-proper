@@ -6,7 +6,7 @@ const news =
 
 export function HomeHero() {
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-black text-white">
+    <section className="relative flex min-h-svh flex-col overflow-hidden bg-black pt-20 text-white">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"

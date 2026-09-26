@@ -42,7 +42,7 @@ export function AboutPrinciples() {
 
   return (
     <section className="bg-[#f3f1ec] text-neutral-950">
-      <div className="grid lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+      <div className="grid lg:min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
         <div className="flex flex-col justify-center px-6 py-20 sm:px-10 lg:px-14 lg:py-16">
           <p className="text-[11px] font-medium tracking-[0.22em] text-neutral-500 uppercase">
             What we hold to

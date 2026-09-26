@@ -11,19 +11,10 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function usesDarkBar(pathname: string) {
-  return (
-    pathname === "/" ||
-    pathname.startsWith("/services") ||
-    pathname.startsWith("/industries") ||
-    pathname.startsWith("/careers")
-  );
-}
-
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const dark = usesDarkBar(pathname);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setOpen(false);
@@ -36,29 +27,36 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header
-      className={`sticky top-0 z-40 ${dark ? "bg-black text-white" : "text-neutral-950"}`}
-    >
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-6 sm:pt-4">
       <div
-        className={`relative z-50 mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-6 px-6 sm:px-10 lg:px-14 ${
-          dark
-            ? "bg-black"
-            : "border-b border-black/8 bg-[#f7f6f3]"
+        className={`pointer-events-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 rounded-full border border-white/10 px-1.5 text-white shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-colors duration-300 ${
+          scrolled ? "bg-[#14161e]/80" : "bg-[#14161e]/60"
         }`}
       >
-        <Link href="/" className="relative z-50 flex items-center" aria-label="ELIV Logistics">
+        <Link
+          href="/"
+          className="relative z-50 flex h-11 shrink-0 items-center rounded-full bg-white px-2.5"
+          aria-label="ELIV Logistics"
+        >
           <Image
             src="/logo.png"
             alt=""
             width={554}
             height={518}
             priority
-            className="h-11 w-auto"
+            className="h-9 w-auto object-contain"
           />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
           {navItems.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -66,12 +64,8 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-flex flex-col items-center gap-1.5 text-[11px] font-medium tracking-[0.18em] uppercase transition-opacity ${
-                  active
-                    ? "opacity-100"
-                    : dark
-                      ? "text-white/55 hover:text-white"
-                      : "text-neutral-500 hover:text-neutral-950"
+                className={`inline-flex flex-col items-center gap-1 text-[11px] font-medium tracking-[0.16em] uppercase ${
+                  active ? "text-white" : "text-white/65 hover:text-white"
                 }`}
               >
                 <Text3DFlip
@@ -83,9 +77,7 @@ export function SiteHeader() {
                 </Text3DFlip>
                 <span
                   aria-hidden
-                  className={`h-0.5 w-3 rounded-full ${
-                    active ? "bg-[#f97316]" : "bg-transparent"
-                  }`}
+                  className={`h-px w-4 ${active ? "bg-white" : "bg-transparent"}`}
                 />
               </Link>
             );
@@ -95,11 +87,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className={`hidden h-10 items-center rounded-full px-5 text-[11px] font-semibold tracking-[0.16em] uppercase md:inline-flex ${
-              dark
-                ? "bg-white text-black"
-                : "bg-neutral-950 text-white"
-            }`}
+            className="hidden h-11 items-center rounded-full bg-[#e6d3b4] px-5 text-[11px] font-semibold tracking-[0.14em] text-neutral-950 uppercase lg:inline-flex"
           >
             <Text3DFlip
               as="span"
@@ -111,7 +99,7 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            className="relative z-50 inline-flex h-10 w-10 items-center justify-center md:hidden"
+            className="relative z-50 inline-flex h-10 w-10 items-center justify-center text-white lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -137,9 +125,7 @@ export function SiteHeader() {
         <nav
           id="mobile-nav"
           aria-label="Mobile"
-          className={`fixed inset-0 z-40 flex h-dvh w-full flex-col justify-start px-6 pt-20 pb-10 md:hidden ${
-            dark ? "bg-black text-white" : "bg-[#f7f6f3] text-neutral-950"
-          }`}
+          className="pointer-events-auto fixed inset-0 z-40 flex h-dvh w-full flex-col justify-start bg-[#101218]/88 px-6 pt-24 pb-10 text-white backdrop-blur-xl lg:hidden"
         >
           <ul className="flex flex-col">
             {navItems.map((item, index) => {
@@ -173,9 +159,7 @@ export function SiteHeader() {
           </ul>
           <Link
             href="/contact"
-            className={`mt-8 inline-flex h-12 w-fit items-center rounded-full px-6 text-[11px] font-semibold tracking-[0.16em] uppercase ${
-              dark ? "bg-white text-black" : "bg-neutral-950 text-white"
-            }`}
+            className="mt-8 inline-flex h-12 w-fit items-center rounded-full bg-[#e6d3b4] px-6 text-[11px] font-semibold tracking-[0.14em] text-neutral-950 uppercase"
             onClick={() => setOpen(false)}
           >
             <Text3DFlip

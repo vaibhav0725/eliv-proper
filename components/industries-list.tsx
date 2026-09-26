@@ -89,7 +89,7 @@ export function IndustriesList() {
     <section className="bg-black">
       {industries.map((industry, index) => (
         <article key={industry.title}>
-          <div className="sticky top-16 z-30 bg-white">
+          <div className="sticky top-24 z-30 bg-white">
             <div className="flex items-center gap-4 border-b border-black/10 bg-white px-6 py-4 text-neutral-950 sm:px-10 lg:px-14">
               <p className="w-10 shrink-0 text-sm text-zinc-500">
                 {String(index + 1).padStart(2, "0")}

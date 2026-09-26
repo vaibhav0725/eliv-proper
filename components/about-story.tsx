@@ -82,7 +82,7 @@ export function AboutStory() {
         className="relative hidden lg:block"
         style={{ height: `${chapters.length * 100}vh` }}
       >
-        <div className="sticky top-16 h-[calc(100svh-4rem)] overflow-hidden">
+        <div className="sticky top-24 h-[calc(100svh-6rem)] overflow-hidden">
           <motion.div
             style={{ x, width: `${chapters.length * 100}%` }}
             className="flex h-full"

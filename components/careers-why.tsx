@@ -47,7 +47,7 @@ export function CareersWhy() {
   return (
     <section className="bg-neutral-950 text-white">
       <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:grid lg:grid-cols-[minmax(260px,0.72fr)_minmax(0,1.15fr)] lg:items-start lg:px-14">
-        <div className="py-16 lg:sticky lg:top-16 lg:self-start lg:py-14">
+        <div className="py-16 lg:sticky lg:top-24 lg:self-start lg:py-14">
           <p className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
             Why join us
           </p>
@@ -59,7 +59,7 @@ export function CareersWhy() {
         <div className="relative pb-16 lg:py-14">
           <p
             aria-hidden
-            className="pointer-events-none sticky top-16 z-0 h-0 overflow-visible text-right text-[28vw] leading-none font-black tracking-[-0.06em] text-white/6 select-none lg:text-[16vw]"
+            className="pointer-events-none sticky top-24 z-0 h-0 overflow-visible text-right text-[28vw] leading-none font-black tracking-[-0.06em] text-white/6 select-none lg:text-[16vw]"
           >
             <span className="block -translate-y-2 lg:translate-y-6">
               {String(active + 1).padStart(2, "0")}

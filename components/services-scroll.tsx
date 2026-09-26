@@ -59,7 +59,7 @@ export function ServicesScroll() {
       className="relative bg-neutral-950 text-white"
       style={{ height: `${chapters.length * 100}vh` }}
     >
-      <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col overflow-hidden px-6 py-8 sm:px-10 lg:px-16 lg:py-12">
+      <div className="sticky top-24 flex h-[calc(100svh-6rem)] flex-col overflow-hidden px-6 py-8 sm:px-10 lg:px-16 lg:py-12">
         <div className="flex items-center justify-between gap-6">
           <p className="text-[11px] tracking-[0.2em] text-white/50 uppercase">
             How a move runs
