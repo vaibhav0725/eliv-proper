@@ -1,0 +1,65 @@
+[
+  {
+    "id": "job-warehouse-coordinator",
+    "heading": "Warehouse Coordinator",
+    "details": "Coordinate inbound and outbound freight so warehouse movements stay accurate and on schedule.",
+    "location": "Melbourne",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "job-sales-executive",
+    "heading": "Sales Executive",
+    "details": "Build client relationships across APAC and turn freight enquiries into ongoing business.",
+    "location": "Melbourne",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-16T00:00:00.000Z"
+  },
+  {
+    "id": "job-cs-ops-executive",
+    "heading": "Customer Service & Operations Executive",
+    "details": "Run day-to-day shipments with clients, from booking through to delivery and follow-up.",
+    "location": "Auckland",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-17T00:00:00.000Z"
+  },
+  {
+    "id": "job-sales-support",
+    "heading": "Sales Support",
+    "details": "Support the commercial team with quotes, client follow-up, and shipment coordination.",
+    "location": "Shenzhen",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-18T00:00:00.000Z"
+  },
+  {
+    "id": "job-hr-truck-driver",
+    "heading": "HR Truck Driver",
+    "details": "Move freight on scheduled runs with a focus on safety, timing, and reliable handovers.",
+    "location": "Melbourne",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-19T00:00:00.000Z"
+  },
+  {
+    "id": "job-cs-executive",
+    "heading": "Customer Service Executive",
+    "details": "Be the client’s point of contact and keep each shipment moving with clear updates.",
+    "location": "Auckland",
+    "type": "Full-time",
+    "showOnTop": false,
+    "createdAt": "2026-01-20T00:00:00.000Z"
+  },
+  {
+    "id": "130e1ebd-f638-44bb-bd2a-d9a643be2b5b",
+    "heading": "Full Stack Developer",
+    "details": "Hiring open for all of the engineers",
+    "location": "Delhi",
+    "type": "Part-time",
+    "showOnTop": true,
+    "createdAt": "2026-09-27T09:48:06.158Z"
+  }
+]

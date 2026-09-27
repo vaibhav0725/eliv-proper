@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { ConsultingCall } from "@/components/consulting-call";
 import { FaqSection } from "@/components/faq-section";
 import { IndustryMoving } from "@/components/industry-moving";
 // import { MoveSmarter } from "@/components/move-smarter";
@@ -18,6 +19,7 @@ export function SiteAfterMain() {
   return (
     <>
       {isContact ? null : <IndustryMoving />}
+      {isHome ? <ConsultingCall /> : null}
       {isHome ? null : <FaqSection />}
       {/* {isContact ? null : <MoveSmarter />} */}
     </>

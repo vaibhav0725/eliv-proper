@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const reasons = [
   "Air Freight",
@@ -22,6 +22,41 @@ const fieldClass =
 
 export function AppointmentForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    setPending(true);
+
+    const form = new FormData(event.currentTarget);
+
+    try {
+      const response = await fetch("/api/contact-enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reason: String(form.get("reason") ?? ""),
+          fullName: String(form.get("fullName") ?? ""),
+          company: String(form.get("company") ?? ""),
+          email: String(form.get("email") ?? ""),
+          phone: String(form.get("phone") ?? ""),
+          message: String(form.get("message") ?? ""),
+        }),
+      });
+      const data = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        setError(data.error ?? "Could not send your enquiry.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Could not send your enquiry.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   if (submitted) {
     return (
@@ -32,13 +67,7 @@ export function AppointmentForm() {
   }
 
   return (
-    <form
-      className="min-w-0"
-      onSubmit={(event) => {
-        event.preventDefault();
-        setSubmitted(true);
-      }}
-    >
+    <form className="min-w-0" onSubmit={onSubmit}>
       <fieldset>
         <legend className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
           Reason of enquiry
@@ -116,11 +145,13 @@ export function AppointmentForm() {
         </div>
       </fieldset>
 
+      {error ? <p className="mt-6 text-sm text-red-700">{error}</p> : null}
       <button
         type="submit"
-        className="mt-8 inline-flex h-11 items-center rounded-full bg-neutral-950 px-5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase"
+        disabled={pending}
+        className="mt-8 inline-flex h-11 items-center rounded-full bg-neutral-950 px-5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase disabled:opacity-60"
       >
-        Submit
+        {pending ? "Sending…" : "Submit"}
       </button>
     </form>
   );

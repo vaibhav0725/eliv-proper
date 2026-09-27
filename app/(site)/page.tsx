@@ -3,13 +3,13 @@ import { HomeIndustries } from "@/components/home-industries";
 import { HomeLanes } from "@/components/home-lanes";
 import { HomePartners } from "@/components/home-partners";
 import { HomeServices } from "@/components/home-services";
-import { HomeYard } from "@/components/home-yard";
+import { ScrollVideoShowcase } from "@/components/sections/scroll-video-showcase";
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <HomeYard />
+      <ScrollVideoShowcase />
       <HomeLanes />
       <HomeServices />
       <HomeIndustries />

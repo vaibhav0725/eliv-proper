@@ -1,54 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import type { Job } from "@/backend/types";
+import { CareersApplyForm } from "@/components/careers-apply-form";
 
-const jobs = [
-  {
-    title: "Warehouse Coordinator",
-    description:
-      "Coordinate inbound and outbound freight so warehouse movements stay accurate and on schedule.",
-    location: "Melbourne",
-    type: "Full-time",
-  },
-  {
-    title: "Sales Executive",
-    description:
-      "Build client relationships across APAC and turn freight enquiries into ongoing business.",
-    location: "Melbourne",
-    type: "Full-time",
-  },
-  {
-    title: "Customer Service & Operations Executive",
-    description:
-      "Run day-to-day shipments with clients, from booking through to delivery and follow-up.",
-    location: "Auckland",
-    type: "Full-time",
-  },
-  {
-    title: "Sales Support",
-    description:
-      "Support the commercial team with quotes, client follow-up, and shipment coordination.",
-    location: "Shenzhen",
-    type: "Full-time",
-  },
-  {
-    title: "HR Truck Driver",
-    description:
-      "Move freight on scheduled runs with a focus on safety, timing, and reliable handovers.",
-    location: "Melbourne",
-    type: "Full-time",
-  },
-  {
-    title: "Customer Service Executive",
-    description:
-      "Be the client’s point of contact and keep each shipment moving with clear updates.",
-    location: "Auckland",
-    type: "Full-time",
-  },
-];
-
-export function CareersJobs() {
+export function CareersJobs({ jobs }: { jobs: Job[] }) {
   const label = useRef<HTMLDivElement>(null);
+  const [selected, setSelected] = useState<Job | null>(null);
 
   function move(event: React.MouseEvent<HTMLUListElement>) {
     const chip = label.current;
@@ -68,7 +26,7 @@ export function CareersJobs() {
               Find your place in the team
             </h2>
             <p className="mt-5 max-w-md text-sm leading-6 text-zinc-600 sm:text-[15px]">
-              Mail your CV to us at{" "}
+              Apply with your resume, or mail your CV to{" "}
               <a
                 href="mailto:contact@unitedcarriers.com"
                 className="underline decoration-zinc-400 underline-offset-4 hover:text-neutral-950"
@@ -91,21 +49,27 @@ export function CareersJobs() {
           <span className="text-right">Type</span>
         </div>
         <ul className="border-b border-neutral-950/15" onMouseMove={move}>
+          {jobs.length === 0 ? (
+            <li className="border-t border-neutral-950/15 py-10 text-sm text-zinc-500">
+              There are no open roles right now.
+            </li>
+          ) : null}
           {jobs.map((job, index) => (
-            <li key={job.title} className="border-t border-neutral-950/15">
-              <a
-                href={`mailto:contact@unitedcarriers.com?subject=${encodeURIComponent(`Application: ${job.title}`)}`}
-                className="group grid cursor-none items-start gap-x-6 gap-y-3 py-6 transition-colors duration-300 hover:bg-neutral-950 hover:text-white sm:px-4 lg:grid-cols-[4.5rem_minmax(0,1fr)_9rem_7.5rem_2rem] lg:py-8"
+            <li key={job.id} className="border-t border-neutral-950/15">
+              <button
+                type="button"
+                onClick={() => setSelected(job)}
+                className="group grid w-full cursor-none items-start gap-x-6 gap-y-3 py-6 text-left transition-colors duration-300 hover:bg-neutral-950 hover:text-white sm:px-4 lg:grid-cols-[4.5rem_minmax(0,1fr)_9rem_7.5rem_2rem] lg:py-8"
               >
                 <span className="hidden pt-2 text-xs tracking-[0.14em] text-zinc-500 transition-colors group-hover:text-white/50 lg:block">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="min-w-0">
                   <span className="block text-[clamp(1.35rem,2.4vw,2rem)] leading-none font-bold tracking-[-0.04em] uppercase">
-                    {job.title}
+                    {job.heading}
                   </span>
                   <span className="mt-3 block max-w-xl text-sm leading-6 font-normal tracking-normal text-zinc-600 normal-case transition-colors group-hover:text-white/70">
-                    {job.description}
+                    {job.details}
                   </span>
                 </span>
                 <span className="flex gap-4 pt-1 text-sm text-zinc-600 transition-colors group-hover:text-white/70 lg:contents">
@@ -120,19 +84,26 @@ export function CareersJobs() {
                 >
                   →
                 </span>
-              </a>
+              </button>
             </li>
           ))}
         </ul>
         <div
           ref={label}
           aria-hidden
-          className="pointer-events-none fixed top-0 left-0 z-50 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium tracking-[0.14em] text-neutral-950 uppercase opacity-0 shadow-sm transition-opacity duration-150 group-hover/jobs:opacity-100"
+          className={`pointer-events-none fixed top-0 left-0 z-50 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium tracking-[0.14em] text-neutral-950 uppercase shadow-sm transition-opacity duration-150 ${
+            selected
+              ? "opacity-0"
+              : "opacity-0 group-hover/jobs:opacity-100"
+          }`}
         >
           Apply now
         </div>
         </div>
       </div>
+      {selected ? (
+        <CareersApplyForm job={selected} onClose={() => setSelected(null)} />
+      ) : null}
     </section>
   );
 }

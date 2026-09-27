@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const pins = [
   { id: "europe", top: "28%", left: "49%" },
   { id: "middle-east", top: "40%", left: "60%" },
@@ -14,17 +12,8 @@ const pins = [
 export function ContactHero() {
   return (
     <section className="bg-white text-neutral-950">
-      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col px-6 pt-8 pb-4 sm:px-10 lg:px-14">
-        <div className="flex justify-end">
-          <Link
-            href="/careers"
-            className="inline-flex h-11 items-center rounded-full bg-neutral-950 px-5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase"
-          >
-            Work with us
-          </Link>
-        </div>
-
-        <div className="grid items-center gap-8 py-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:py-6">
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col px-6 pt-24 pb-4 sm:px-10 lg:px-14 lg:pt-28">
+        <div className="grid items-center gap-8 py-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-4">
           <div className="max-w-3xl lg:pl-[6%]">
             <h1 className="text-[clamp(4.6rem,9.2vw,8.4rem)] leading-[0.82] font-black tracking-[-0.05em] uppercase">
               Get
@@ -38,7 +27,7 @@ export function ContactHero() {
 
           <div
             aria-hidden
-            className="relative mx-auto aspect-[950/620] w-full max-w-[560px]"
+            className="relative mx-auto aspect-[950/620] w-full max-w-[420px] lg:mx-0 lg:ml-auto"
           >
             <div
               className="absolute inset-0"

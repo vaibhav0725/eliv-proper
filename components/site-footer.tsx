@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FooterEmailField } from "@/components/footer-email-field";
 
 const links = [
   { href: "/", label: "Home" },
@@ -25,29 +26,13 @@ export function SiteFooter() {
               Freight forwarding, land transport, and customs brokerage, unified
               across APAC under one accountable team.
             </p>
-            <form
-              action="mailto:contact@unitedcarriers.com"
-              className="mt-8 flex max-w-xs items-center rounded-full border border-black/15 py-1 pr-1 pl-4"
-            >
-              <label className="sr-only" htmlFor="footer-email">
-                Email
-              </label>
-              <input
-                id="footer-email"
-                name="body"
-                type="email"
-                required
-                placeholder="Enter your email"
-                className="min-w-0 flex-1 bg-transparent text-sm text-neutral-950 outline-none placeholder:text-zinc-400"
-              />
-              <button
-                type="submit"
-                aria-label="Send email"
-                className="grid size-9 shrink-0 place-items-center rounded-full bg-neutral-950 text-white"
-              >
-                <ArrowIcon />
-              </button>
-            </form>
+            <p className={`mt-8 ${headingClass}`}>Newsletter</p>
+            <FooterEmailField
+              id="footer-email"
+              placeholder="Enter your email"
+              submitLabel="Subscribe"
+              source="newsletter"
+            />
           </div>
 
           <nav aria-label="Footer" className="lg:text-center">
@@ -94,8 +79,19 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className={headingClass}>Social media</p>
-            <div className="mt-5 flex items-center gap-3">
+            <p className="text-[clamp(2rem,3vw,2.75rem)] leading-none font-bold tracking-[-0.04em]">
+              Book a call
+            </p>
+            <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-500">
+              Still having questions? Request a call back.
+            </p>
+            <FooterEmailField
+              id="footer-call"
+              placeholder="Request a call"
+              submitLabel="Request a call"
+              source="book-a-call"
+            />
+            <div className="mt-8 flex items-center gap-3">
               <SocialLink
                 label="LinkedIn"
                 href="https://www.linkedin.com/company/united-carriers-apac/"
@@ -137,14 +133,6 @@ function SocialLink({
     >
       {children}
     </a>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="size-4" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
   );
 }
 
