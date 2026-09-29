@@ -75,19 +75,29 @@ body {
   position: absolute;
   bottom: anchor(top);
   left: anchor(center);
-  translate: -50% -8px;
+  translate: -50%;
+  margin-bottom: 8px;
+  padding: 0.15rem 0.35rem;
+  background: #0045f6;
+  color: #fff;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.globe-label[hidden],
-.globe-vehicle[hidden] {
-  display: none;
-}
-
-.globe-vehicle {
+.globe-label::after {
+  content: "";
   position: absolute;
-  top: anchor(center);
-  left: anchor(center);
-  translate: -50% -50%;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -1px);
+  border: 5px solid transparent;
+  border-top-color: #0045f6;
+}
+
+.globe-label[hidden] {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

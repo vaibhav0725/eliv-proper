@@ -36,42 +36,44 @@ const lines = [
   "APL",
 ];
 
-function Marquee({ label, names }: { label: string; names: string[] }) {
-  const ticker = `${names.join("   ·   ")}   ·   `;
-
+export function HomePartners() {
   return (
-    <div>
-      <p className="px-6 text-[11px] font-medium tracking-[0.2em] text-zinc-500 uppercase sm:px-10 lg:px-14">
-        {label}
-      </p>
-      <div className="mt-4 overflow-hidden border-y border-neutral-950/10 py-5">
-        <div className="footer-marquee-track flex w-max">
-          {[0, 1].map((copy) => (
-            <p
-              key={copy}
-              className="pr-8 text-lg font-medium tracking-tight whitespace-nowrap uppercase"
-            >
-              {ticker}
-            </p>
-          ))}
+    <section className="bg-white text-neutral-950">
+      <div className="mx-auto w-full max-w-[1440px] px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(240px,22rem)] lg:items-end">
+          <h2 className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[0.9] font-bold tracking-[-0.045em] uppercase">
+            Our partners
+          </h2>
+          <p className="max-w-sm text-sm leading-6 text-zinc-600 lg:pb-1">
+            Airlines and shipping lines we place freight with.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-12 border-t border-neutral-950/15 pt-10 lg:grid-cols-2 lg:gap-20">
+          <NameColumn label="Airlines" names={airlines} />
+          <NameColumn label="Shipping lines" names={lines} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-export function HomePartners() {
+function NameColumn({ label, names }: { label: string; names: string[] }) {
   return (
-    <section className="bg-white py-16 text-neutral-950 lg:py-24">
-      <div className="mx-auto mb-12 w-full max-w-[1440px] px-6 sm:px-10 lg:px-14">
-        <h2 className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[0.9] font-bold tracking-[-0.045em] uppercase">
-          Our partners
-        </h2>
-      </div>
-      <div className="flex flex-col gap-12">
-        <Marquee label="Airlines" names={airlines} />
-        <Marquee label="Shipping lines" names={lines} />
-      </div>
-    </section>
+    <div>
+      <p className="text-[11px] font-medium tracking-[0.2em] text-zinc-500 uppercase">
+        {label}
+      </p>
+      <ul className="mt-4 grid grid-cols-2 gap-x-8 border-t border-neutral-950/15">
+        {names.map((name) => (
+          <li
+            key={name}
+            className="border-b border-neutral-950/10 py-3 text-sm tracking-tight text-neutral-950"
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

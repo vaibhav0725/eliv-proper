@@ -18,7 +18,7 @@ const reasons = [
 ];
 
 const fieldClass =
-  "mt-2 w-full border border-black/10 bg-white px-3 py-3 text-sm text-neutral-950 outline-none transition-colors focus:border-neutral-950";
+  "w-full border-b border-neutral-950/15 bg-transparent py-3 text-[15px] text-neutral-950 outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-950";
 
 export function AppointmentForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -60,19 +60,28 @@ export function AppointmentForm() {
 
   if (submitted) {
     return (
-      <p role="status" className="text-sm leading-6 text-neutral-800">
-        Thanks for reaching out. We’ll get back to you shortly.
-      </p>
+      <div role="status" className="flex min-h-[28rem] flex-col justify-center">
+        <p className="text-[11px] font-medium tracking-[0.22em] text-neutral-500 uppercase">
+          Received
+        </p>
+        <p className="mt-4 max-w-sm text-[clamp(2.2rem,4vw,3.4rem)] leading-[0.92] font-bold tracking-[-0.045em] uppercase">
+          We’ll be in touch.
+        </p>
+        <p className="mt-5 max-w-sm text-sm leading-6 text-neutral-600">
+          A reply comes back within one business day, from the desk that will
+          handle the file.
+        </p>
+      </div>
     );
   }
 
   return (
     <form className="min-w-0" onSubmit={onSubmit}>
       <fieldset>
-        <legend className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
+        <legend className="text-[11px] font-medium tracking-[0.18em] text-neutral-500 uppercase">
           Reason of enquiry
         </legend>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           {reasons.map((reason, index) => (
             <label key={reason} className="cursor-pointer">
               <input
@@ -82,7 +91,7 @@ export function AppointmentForm() {
                 required={index === 0}
                 className="peer sr-only"
               />
-              <span className="block border border-black/10 px-3 py-2 text-xs tracking-wide text-neutral-700 transition-colors peer-checked:border-neutral-950 peer-checked:bg-neutral-950 peer-checked:text-white hover:border-neutral-950">
+              <span className="block rounded-full border border-neutral-950/12 px-3.5 py-2 text-[12px] tracking-wide text-neutral-700 transition-colors peer-checked:border-neutral-950 peer-checked:bg-neutral-950 peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-neutral-950 hover:border-neutral-950">
                 {reason}
               </span>
             </label>
@@ -91,11 +100,11 @@ export function AppointmentForm() {
       </fieldset>
 
       <fieldset className="mt-10">
-        <legend className="text-[10px] font-medium tracking-[0.16em] text-zinc-500 uppercase">
+        <legend className="text-[11px] font-medium tracking-[0.18em] text-neutral-500 uppercase">
           Your information
         </legend>
-        <div className="mt-6 grid gap-x-10 gap-y-6 sm:grid-cols-2">
-          <label className="grid gap-1 text-sm text-zinc-500">
+        <div className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+          <label className="grid content-start gap-1 text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
             Your full name
             <input
               name="fullName"
@@ -105,9 +114,9 @@ export function AppointmentForm() {
               className={fieldClass}
             />
           </label>
-          <label className="grid gap-1 text-sm text-zinc-500">
+          <label className="grid content-start gap-1 text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
             <span>
-              Company name <span className="text-zinc-400">(optional)</span>
+              Company <span className="tracking-normal text-neutral-400 normal-case">(optional)</span>
             </span>
             <input
               name="company"
@@ -116,7 +125,7 @@ export function AppointmentForm() {
               className={fieldClass}
             />
           </label>
-          <label className="grid gap-1 text-sm text-zinc-500">
+          <label className="grid content-start gap-1 text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
             Email
             <input
               name="email"
@@ -126,7 +135,7 @@ export function AppointmentForm() {
               className={fieldClass}
             />
           </label>
-          <label className="grid gap-1 text-sm text-zinc-500">
+          <label className="grid content-start gap-1 text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase">
             Phone
             <input
               name="phone"
@@ -136,23 +145,26 @@ export function AppointmentForm() {
               className={fieldClass}
             />
           </label>
-          <label className="grid gap-1 text-sm text-zinc-500 sm:col-span-2">
+          <label className="grid content-start gap-1 text-[11px] font-medium tracking-[0.16em] text-neutral-500 uppercase sm:col-span-2">
             <span>
-              Message <span className="text-zinc-400">(optional)</span>
+              Message <span className="tracking-normal text-neutral-400 normal-case">(optional)</span>
             </span>
-            <textarea name="message" rows={3} className={`${fieldClass} resize-y`} />
+            <textarea name="message" rows={4} className={`${fieldClass} resize-y`} />
           </label>
         </div>
       </fieldset>
 
-      {error ? <p className="mt-6 text-sm text-red-700">{error}</p> : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="mt-8 inline-flex h-11 items-center rounded-full bg-neutral-950 px-5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase disabled:opacity-60"
-      >
-        {pending ? "Sending…" : "Submit"}
-      </button>
+      {error ? <p className="mt-8 text-sm text-red-700">{error}</p> : null}
+      <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <button
+          type="submit"
+          disabled={pending}
+          className="inline-flex h-12 items-center rounded-full bg-[#e6d3b4] px-7 text-[11px] font-semibold tracking-[0.16em] text-neutral-950 uppercase transition-colors hover:bg-[#dcc7a4] disabled:opacity-60"
+        >
+          {pending ? "Sending…" : "Send enquiry"}
+        </button>
+        <p className="text-sm text-neutral-500">Reply within one business day.</p>
+      </div>
     </form>
   );
 }

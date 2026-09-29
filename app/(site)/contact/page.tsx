@@ -4,7 +4,8 @@ import { ContactHero } from "@/components/contact-hero";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with United Carriers.",
+  description:
+    "Write to United Carriers in Melbourne, Auckland, Hong Kong, or Shenzhen. We reply within one business day.",
 };
 
 export default function ContactPage() {

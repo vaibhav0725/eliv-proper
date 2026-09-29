@@ -1,59 +1,128 @@
-const pins = [
-  { id: "europe", top: "28%", left: "49%" },
-  { id: "middle-east", top: "40%", left: "60%" },
-  { id: "india", top: "46%", left: "68%" },
-  { id: "china", top: "38%", left: "78%" },
-  { id: "hong-kong", top: "46%", left: "80%" },
-  { id: "southeast-asia", top: "54%", left: "79%" },
-  { id: "australia", top: "74%", left: "86%" },
-  { id: "new-zealand", top: "82%", left: "94%" },
+"use client";
+
+import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
+
+const lines = ["Get", "in touch"];
+
+const details = [
+  {
+    label: "Phone",
+    value: "1300 000 082",
+    href: "tel:1300000082",
+  },
+  {
+    label: "Email",
+    value: "contact@unitedcarriers.com",
+    href: "mailto:contact@unitedcarriers.com",
+  },
+  {
+    label: "Hours",
+    value: "Weekdays, 8:30 – 17:00",
+  },
+  {
+    label: "LinkedIn",
+    value: "United Carriers APAC",
+    href: "https://www.linkedin.com/company/united-carriers-apac/",
+  },
 ];
 
-export function ContactHero() {
-  return (
-    <section className="bg-white text-neutral-950">
-      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col px-6 pt-24 pb-4 sm:px-10 lg:px-14 lg:pt-28">
-        <div className="grid items-center gap-8 py-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:py-4">
-          <div className="max-w-3xl lg:pl-[6%]">
-            <h1 className="text-[clamp(4.6rem,9.2vw,8.4rem)] leading-[0.82] font-black tracking-[-0.05em] uppercase">
-              Get
-              <br />
-              in touch
-            </h1>
-            <p className="mt-6 max-w-md text-sm text-neutral-800 sm:text-[15px]">
-              Have a question or need support? Our team is here to help.
-            </p>
-          </div>
+const ease = [0.22, 1, 0.36, 1] as const;
 
-          <div
-            aria-hidden
-            className="relative mx-auto aspect-[950/620] w-full max-w-[420px] lg:mx-0 lg:ml-auto"
+export function ContactHero() {
+  const reduce = useReducedMotion();
+
+  return (
+    <section className="bg-[#101218] text-white">
+      <div className="mx-auto grid w-full max-w-[1440px] items-center gap-12 px-6 pt-28 pb-16 sm:px-10 lg:min-h-svh lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16 lg:px-14 lg:pt-32 lg:pb-20">
+        <div className="@container max-w-xl">
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease }}
+            className="text-[11px] font-medium tracking-[0.22em] text-white/55 uppercase"
           >
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, #b5b5b5 1.05px, transparent 1.15px)",
-                backgroundSize: "4px 4px",
-                WebkitMaskImage: "url(/world-map.svg)",
-                maskImage: "url(/world-map.svg)",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-              }}
-            />
-            {pins.map((pin) => (
-              <span
-                key={pin.id}
-                className="absolute size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2f6bff]"
-                style={{ top: pin.top, left: pin.left }}
-              />
+            Contact
+          </motion.p>
+
+          <h1 className="mt-5 text-[clamp(3.25rem,20cqi,6.75rem)] leading-[0.82] font-black tracking-[-0.055em] uppercase">
+            {lines.map((line, index) => (
+              <span key={line} className="block overflow-hidden">
+                <motion.span
+                  className="block"
+                  initial={reduce ? false : { y: "115%" }}
+                  animate={{ y: "0%" }}
+                  transition={{
+                    duration: 0.95,
+                    delay: 0.08 + index * 0.1,
+                    ease,
+                  }}
+                >
+                  {line}
+                </motion.span>
+              </span>
             ))}
-          </div>
+          </h1>
+
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease }}
+            className="mt-8 max-w-md text-[15px] leading-relaxed text-white/75"
+          >
+            Four offices, one desk. Write with the lane, the cargo, and the
+            timing. A reply comes back within one business day.
+          </motion.p>
+
+          <motion.dl
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.52, ease }}
+            className="mt-12 grid gap-x-8 gap-y-7 border-t border-white/15 pt-8 sm:grid-cols-2"
+          >
+            {details.map((item) => (
+              <div key={item.label}>
+                <dt className="text-[10px] font-medium tracking-[0.18em] text-white/40 uppercase">
+                  {item.label}
+                </dt>
+                <dd className="mt-2 text-sm leading-6 text-white">
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="underline decoration-white/20 underline-offset-4 transition-colors hover:decoration-white"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    item.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
+
+        <motion.figure
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease }}
+          className="lg:py-6"
+        >
+          <div className="relative aspect-[3/2] overflow-hidden bg-white/5">
+            <Image
+              src="/contact-team.png"
+              alt="United Carriers team in front of a company truck"
+              fill
+              priority
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <figcaption className="mt-4 flex items-center justify-between gap-4 text-[10px] font-medium tracking-[0.18em] text-white/40 uppercase">
+            <span>Melbourne</span>
+            <span>The desk you reach</span>
+          </figcaption>
+        </motion.figure>
       </div>
     </section>
   );
