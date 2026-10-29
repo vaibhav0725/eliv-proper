@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import type { Job } from "@/backend/types";
 import { CareersApplyForm } from "@/components/careers-apply-form";
+import { contact } from "@/lib/seo";
 
 export function CareersJobs({ jobs }: { jobs: Job[] }) {
   const label = useRef<HTMLDivElement>(null);
@@ -28,10 +29,10 @@ export function CareersJobs({ jobs }: { jobs: Job[] }) {
             <p className="mt-5 max-w-md text-sm leading-6 text-zinc-600 sm:text-[15px]">
               Apply with your resume, or mail your CV to{" "}
               <a
-                href="mailto:contact@unitedcarriers.com"
+                href={`mailto:${contact.email}`}
                 className="underline decoration-zinc-400 underline-offset-4 hover:text-neutral-950"
               >
-                contact@unitedcarriers.com
+                {contact.email}
               </a>
               .
             </p>

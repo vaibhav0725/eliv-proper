@@ -4,12 +4,12 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import { useRef } from "react";
 
 const sentence =
-  "United Carriers moves freight across Australia, New Zealand, Hong Kong, and China. Air, ocean, road, and project cargo stay with one team from pickup to delivery, with customs, warehousing, and domestic transport on the same file.";
+  "Eliv Logistics, operated by E-Liv Solutions LLC, moves freight across Australia, New Zealand, Hong Kong, and China. Air, ocean, road, and project cargo stay with one team from pickup to delivery, with customs, warehousing, and domestic transport on the same file.";
 
 const facts = [
   { label: "Markets", value: "AU · NZ · HK · CN" },
   { label: "Modes", value: "Air, ocean, road, project" },
-  { label: "Standard", value: "Australian Trusted Trader" },
+  { label: "Company", value: "E-Liv Solutions LLC" },
   { label: "Handoffs", value: "One team, start to finish" },
 ];
 

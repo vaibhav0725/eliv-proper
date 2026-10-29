@@ -115,7 +115,7 @@ export function ConsultingCall() {
                       type="tel"
                       autoComplete="tel"
                       required
-                      placeholder="e.g. 0400 000 000"
+                      placeholder="+1 (646) 249-8054"
                       className={inputClass}
                     />
                   </Field>
@@ -134,7 +134,7 @@ export function ConsultingCall() {
                   <input
                     name="preferredTime"
                     type="text"
-                    placeholder="e.g. Tue 10:00 AM AEST"
+                    placeholder="e.g. Tue 10:00 AM ET"
                     className={inputClass}
                   />
                 </Field>

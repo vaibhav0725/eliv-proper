@@ -1,13 +1,18 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
 import { TableOfContents, type TocItem } from "@/components/legal/table-of-contents";
 import { LegalPlaceholder } from "@/components/legal/legal-placeholder";
 import { PrintButton } from "@/components/legal/print-button";
+import { breadcrumbJsonLd, contact, headquarters, legalName, pageMetadata, siteName } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | E-Liv Logistics",
-  description:
-    "E-Liv Logistics Privacy Policy. Details on personal data collection, usage, legal bases, international transfers, retention, and privacy rights under GDPR, CCPA, and DPDP Act.",
-};
+const title = "Privacy Policy";
+const description =
+  "How Eliv Logistics collects, uses, shares, and retains personal data, and the privacy rights available under GDPR, CCPA, and the DPDP Act.";
+
+export const metadata = pageMetadata({
+  title,
+  description,
+  path: "/privacy-policy",
+});
 
 const tocItems: TocItem[] = [
   { id: "who-we-are", title: "Who we are", number: 1 },
@@ -29,6 +34,13 @@ const tocItems: TocItem[] = [
 
 export default function PrivacyPolicyPage() {
   return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: title, path: "/privacy-policy" },
+        ])}
+      />
         <div className="bg-white text-neutral-900 min-h-screen">
           <div className="mx-auto w-full max-w-[1440px] px-6 pt-24 pb-20 sm:px-10 sm:pt-28 lg:px-14 lg:pt-32">
             <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[300px_minmax(0,1fr)] lg:gap-14 xl:gap-16">
@@ -36,7 +48,7 @@ export default function PrivacyPolicyPage() {
               <TableOfContents
                 items={tocItems}
                 currentPath="/privacy-policy"
-                contactEmail="privacy@elivlogistics.com"
+                contactEmail={contact.email}
               />
 
               {/* Right side: Main content with main heading */}
@@ -61,7 +73,7 @@ export default function PrivacyPolicyPage() {
                   </div>
 
                   <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-4xl lg:text-5xl leading-[1.15]">
-                    E-Liv Logistics — Privacy Policy
+                    {siteName} — Privacy Policy
                   </h1>
                 </header>
 
@@ -89,17 +101,13 @@ export default function PrivacyPolicyPage() {
                         >
                           www.elivlogistics.com
                         </a>{" "}
-                        (the &quot;Site&quot;), is operated by{" "}
-                        <LegalPlaceholder>[E-Liv Hitech Pvt. Ltd., 611 Sector-8, IMT Manesar, Haryana 122051, India]</LegalPlaceholder>{" "}
-                        <LegalPlaceholder>[and its affiliate [U.S. entity name and address]]</LegalPlaceholder> (together &quot;E-Liv Logistics&quot;, &quot;we&quot;, &quot;us&quot;). We arrange freight forwarding, inland haulage, customs coordination and warehousing services for business customers. For privacy questions, write to{" "}
-                        <LegalPlaceholder>
-                          [<a
-                            href="mailto:privacy@elivlogistics.com"
-                            className="underline decoration-neutral-400 hover:decoration-neutral-950"
-                          >
-                            privacy@elivlogistics.com
-                          </a>]
-                        </LegalPlaceholder>.
+                        (the &quot;Site&quot;), is operated by {legalName}, {headquarters.singleLine} (&quot;{siteName}&quot;, &quot;we&quot;, &quot;us&quot;). We arrange freight forwarding, inland haulage, customs coordination and warehousing services for business customers. For privacy questions, write to{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>.
                       </p>
                     </div>
                   </section>
@@ -360,7 +368,7 @@ export default function PrivacyPolicyPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p>
-                        We operate from India and serve customers in the United States, Canada and elsewhere, so data is transferred across borders. Where required, we use safeguards such as Standard Contractual Clauses and contractual confidentiality and security commitments.
+                        We operate from Marlton, New Jersey, and serve customers in the United States and elsewhere, so data may be transferred across borders. Where required, we use safeguards such as Standard Contractual Clauses and contractual confidentiality and security commitments.
                       </p>
                     </div>
                   </section>
@@ -395,14 +403,12 @@ export default function PrivacyPolicyPage() {
                     <div className="mt-4 space-y-4">
                       <p>
                         The Site is served over HTTPS with TLS encryption. We apply access controls, least-privilege permissions, and vendor security reviews. No system is fully secure; tell us promptly at{" "}
-                        <LegalPlaceholder>
-                          [<a
-                            href="mailto:privacy@elivlogistics.com"
-                            className="underline decoration-neutral-400 hover:decoration-neutral-950"
-                          >
-                            privacy@elivlogistics.com
-                          </a>]
-                        </LegalPlaceholder>{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
                         if you suspect misuse.
                       </p>
                     </div>
@@ -496,15 +502,17 @@ export default function PrivacyPolicyPage() {
                       </p>
                       <p>
                         To make a request, email{" "}
-                        <LegalPlaceholder>
-                          [<a
-                            href="mailto:privacy@elivlogistics.com"
-                            className="underline decoration-neutral-400 hover:decoration-neutral-950"
-                          >
-                            privacy@elivlogistics.com
-                          </a>]
-                        </LegalPlaceholder>{" "}
-                        or call <LegalPlaceholder>[toll-free number]</LegalPlaceholder>. We verify identity before acting and reply within the time the applicable law sets (generally 30 to 45 days).
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
+                        or call{" "}
+                        <a href={contact.telephoneHref} className="underline decoration-neutral-400 hover:decoration-neutral-950">
+                          {contact.telephoneDisplay}
+                        </a>
+                        . We verify identity before acting and reply within the time the applicable law sets (generally 30 to 45 days).
                       </p>
                     </div>
                   </section>
@@ -521,7 +529,14 @@ export default function PrivacyPolicyPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p>
-                        We handle personal information in line with PIPEDA and applicable provincial law. Our Privacy Officer is <LegalPlaceholder>[name, email]</LegalPlaceholder>.
+                        We handle personal information in line with PIPEDA and applicable provincial law. Our Privacy Officer can be reached at{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
+                        or {contact.telephoneDisplay}.
                       </p>
                     </div>
                   </section>
@@ -538,7 +553,14 @@ export default function PrivacyPolicyPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p>
-                        <LegalPlaceholder>[Name], [email], [address]</LegalPlaceholder>. We acknowledge grievances within <LegalPlaceholder>[7]</LegalPlaceholder> days.
+                        {legalName}, {headquarters.singleLine} ·{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
+                        · {contact.telephoneDisplay}. We acknowledge grievances within 7 days.
                       </p>
                     </div>
                   </section>
@@ -589,15 +611,14 @@ export default function PrivacyPolicyPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p className="rounded-xl border border-black/8 bg-[#fbfbfa] p-5">
-                        <LegalPlaceholder>[E-Liv Hitech Pvt. Ltd.]</LegalPlaceholder>, <LegalPlaceholder>[address]</LegalPlaceholder> ·{" "}
-                        <LegalPlaceholder>
-                          [<a
-                            href="mailto:privacy@elivlogistics.com"
-                            className="underline decoration-neutral-400 hover:decoration-neutral-950"
-                          >
-                            privacy@elivlogistics.com
-                          </a>]
-                        </LegalPlaceholder> · <LegalPlaceholder>[phone]</LegalPlaceholder>
+                        {legalName}, {headquarters.singleLine} ·{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
+                        · {contact.telephoneDisplay}
                       </p>
                     </div>
                   </section>
@@ -607,5 +628,6 @@ export default function PrivacyPolicyPage() {
             </div>
           </div>
         </div>
-        );
+    </>
+  );
 }

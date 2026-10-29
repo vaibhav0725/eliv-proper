@@ -37,7 +37,7 @@ export function SiteHeader() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-6 sm:pt-4">
       <div
-        className={`pointer-events-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 rounded-full border border-white/10 px-1.5 text-white shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-colors duration-300 ${
+        className={`pointer-events-auto relative z-50 flex h-14 w-full max-w-6xl items-center justify-between gap-4 rounded-full border border-white/10 px-1.5 text-white shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-colors duration-300 ${
           scrolled ? "bg-[#14161e]/80" : "bg-[#14161e]/60"
         }`}
       >

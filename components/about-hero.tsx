@@ -44,7 +44,7 @@ export function AboutHero() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-[11px] font-medium tracking-[0.22em] text-white/70 uppercase"
           >
-            About United Carriers
+            About Eliv Logistics
           </motion.p>
 
           <h1 className="mt-5 text-[clamp(4.4rem,10vw,8.8rem)] leading-[0.82] font-black tracking-[-0.055em] uppercase">

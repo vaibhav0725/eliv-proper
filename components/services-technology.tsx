@@ -14,7 +14,7 @@ const platforms = [
     name: "MachShip",
     image: "/services/machship.jpg",
     alt: "A transport dashboard with live rates and tracking",
-    body: "United Carriers provides clients with a streamlined domestic transport portal, giving access to live rates, seamless booking, real-time tracking, and delivery updates across land transport. Through MachShip, our aggregator platform, clients benefit from our established carrier contracts and transport network.",
+    body: "Eliv Logistics provides clients with a streamlined domestic transport portal, giving access to live rates, seamless booking, real-time tracking, and delivery updates across land transport. Through MachShip, our aggregator platform, clients benefit from our established carrier contracts and transport network.",
   },
 ];
 
@@ -30,7 +30,7 @@ export function ServicesTechnology() {
           &amp; visibility
         </h2>
         <p className="mx-auto mt-8 max-w-md text-[14px] leading-relaxed text-neutral-600">
-          Every service delivered by United Carriers is supported by advanced,
+          Every service delivered by Eliv Logistics is supported by advanced,
           integrated technology platforms that provide structure, control, and
           transparency across the supply chain.
         </p>

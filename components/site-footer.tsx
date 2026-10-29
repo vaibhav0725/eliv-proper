@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { FooterEmailField } from "@/components/footer-email-field";
+import { contact, headquarters, legalName, siteName } from "@/lib/seo";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/industries", label: "Industries" },
-  { href: "/careers", label: "Careers" },
+  // { href: "/industries", label: "Industries" },
+  // { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -20,8 +21,9 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           <div>
             <p className="text-[clamp(2rem,3vw,2.75rem)] leading-none font-bold tracking-[-0.04em]">
-              Eliv Logistics
+              {siteName}
             </p>
+            <p className="mt-3 text-sm text-zinc-500">{legalName}</p>
             <p className="mt-5 max-w-xs text-sm leading-6 text-zinc-500">
               Freight forwarding, land transport, and customs brokerage, unified
               across APAC under one accountable team.
@@ -56,23 +58,21 @@ export function SiteFooter() {
             <ul className="mt-5 flex flex-col gap-4 text-sm leading-6 text-zinc-600">
               <li className="flex items-center gap-3">
                 <PinIcon />
-                <span>
-                  2A International Square, Tullamarine VIC 3043, Australia.
-                </span>
+                <span>{headquarters.singleLine}</span>
               </li>
               <li>
-                <a href="tel:1300000082" className="flex items-center gap-3 hover:text-neutral-950">
+                <a href={contact.telephoneHref} className="flex items-center gap-3 hover:text-neutral-950">
                   <PhoneIcon />
-                  <span>1300 000 082</span>
+                  <span>{contact.telephoneDisplay}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:contact@unitedcarriers.com"
+                  href={`mailto:${contact.email}`}
                   className="flex items-center gap-3 hover:text-neutral-950"
                 >
                   <MailIcon />
-                  <span>contact@unitedcarriers.com</span>
+                  <span>{contact.email}</span>
                 </a>
               </li>
             </ul>
@@ -92,12 +92,6 @@ export function SiteFooter() {
               source="book-a-call"
             />
             <div className="mt-8 flex items-center gap-3">
-              <SocialLink
-                label="LinkedIn"
-                href="https://www.linkedin.com/company/united-carriers-apac/"
-              >
-                <LinkedInIcon />
-              </SocialLink>
               <SocialLink label="Instagram" href="https://www.instagram.com">
                 <InstagramIcon />
               </SocialLink>
@@ -109,7 +103,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-black/10 pt-6 text-xs tracking-wide text-zinc-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} Eliv Logistics. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {legalName}. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-6">
             <Link
               href="/privacy-policy"
@@ -172,14 +166,6 @@ function MailIcon() {
     <svg viewBox="0 0 24 24" className="size-4 shrink-0" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.6">
       <rect x="3.5" y="5.5" width="17" height="13" rx="1.5" />
       <path d="M4 7l8 6 8-6" />
-    </svg>
-  );
-}
-
-function LinkedInIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="size-3.5" aria-hidden fill="currentColor">
-      <path d="M4.7 3.3A1.8 1.8 0 1 0 4.7 7a1.8 1.8 0 0 0 0-3.7zM3.2 8.6h3v12.1h-3V8.6zm5.2 0h2.9v1.7h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7v7.3h-3v-6.5c0-1.5 0-3.5-2.1-3.5s-2.5 1.7-2.5 3.4v6.6h-3V8.6z" />
     </svg>
   );
 }

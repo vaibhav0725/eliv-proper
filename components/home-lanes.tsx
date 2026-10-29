@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
 import { useState } from "react";
 
 const lanes = [
@@ -47,27 +46,25 @@ export function HomeLanes() {
             One file.
           </h2>
         </div>
-        <p className="max-w-xs text-sm leading-6 text-white/60">
+        <p className="max-w-md text-sm leading-6 text-white/60 sm:max-w-xs">
           Australia, New Zealand, Hong Kong, and China. The lanes are ones we
           actually operate, not a map of places we mention.
         </p>
       </div>
 
-      <div
-        className="mx-auto mt-12 flex max-w-[1440px] flex-col gap-3 sm:h-[460px] sm:flex-row"
-        onMouseLeave={() => setActive(0)}
-      >
+      <div className="mx-auto mt-10 flex max-w-[1440px] flex-col gap-3 lg:mt-12 lg:h-[460px] lg:flex-row">
         {lanes.map((lane, index) => {
           const selected = index === active;
           return (
-            <motion.button
+            <button
               key={lane.title}
               type="button"
+              onClick={() => setActive(index)}
               onMouseEnter={() => setActive(index)}
               onFocus={() => setActive(index)}
-              animate={{ flex: selected ? 2.4 : 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 32 }}
-              className="relative h-56 min-w-0 overflow-hidden text-left sm:h-full"
+              className={`relative min-w-0 overflow-hidden text-left transition-[flex-grow,height] duration-500 ease-out ${
+                selected ? "h-72 lg:flex-[2.4]" : "h-28 lg:flex-1"
+              } lg:h-auto`}
             >
               <Image
                 src={lane.image}
@@ -94,7 +91,7 @@ export function HomeLanes() {
                   {selected ? lane.line : ""}
                 </p>
               </div>
-            </motion.button>
+            </button>
           );
         })}
       </div>

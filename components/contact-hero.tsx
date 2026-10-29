@@ -2,28 +2,28 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { contact, headquarters } from "@/lib/seo";
 
 const lines = ["Get", "in touch"];
 
 const details = [
   {
     label: "Phone",
-    value: "1300 000 082",
-    href: "tel:1300000082",
+    value: contact.telephoneDisplay,
+    href: contact.telephoneHref,
   },
   {
     label: "Email",
-    value: "contact@unitedcarriers.com",
-    href: "mailto:contact@unitedcarriers.com",
+    value: contact.email,
+    href: `mailto:${contact.email}`,
   },
   {
     label: "Hours",
     value: "Weekdays, 8:30 – 17:00",
   },
   {
-    label: "LinkedIn",
-    value: "United Carriers APAC",
-    href: "https://www.linkedin.com/company/united-carriers-apac/",
+    label: "Office",
+    value: headquarters.singleLine,
   },
 ];
 
@@ -70,8 +70,8 @@ export function ContactHero() {
             transition={{ duration: 0.7, delay: 0.4, ease }}
             className="mt-8 max-w-md text-[15px] leading-relaxed text-white/75"
           >
-            Four offices, one desk. Write with the lane, the cargo, and the
-            timing. A reply comes back within one business day.
+            One office in Marlton, New Jersey. Write with the lane, the cargo,
+            and the timing. A reply comes back within one business day.
           </motion.p>
 
           <motion.dl
@@ -110,8 +110,8 @@ export function ContactHero() {
         >
           <div className="relative aspect-[3/2] overflow-hidden bg-white/5">
             <Image
-              src="/contact-team.png"
-              alt="United Carriers team in front of a company truck"
+              src="/services/ocean.jpg"
+              alt="A container ship alongside cranes at a freight terminal"
               fill
               priority
               sizes="(min-width: 1024px) 46vw, 100vw"
@@ -119,8 +119,8 @@ export function ContactHero() {
             />
           </div>
           <figcaption className="mt-4 flex items-center justify-between gap-4 text-[10px] font-medium tracking-[0.18em] text-white/40 uppercase">
-            <span>Melbourne</span>
-            <span>The desk you reach</span>
+            <span>Marlton, NJ</span>
+            <span>The freight we move</span>
           </figcaption>
         </motion.figure>
       </div>

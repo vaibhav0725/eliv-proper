@@ -15,7 +15,7 @@ export function IndustriesHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-black/25" />
 
       <p className="absolute top-[42%] right-6 z-10 max-w-[15rem] text-[clamp(1.15rem,1.8vw,1.7rem)] leading-[1.25] font-medium sm:right-10 lg:right-16 lg:max-w-[18rem]">
-        United Carriers operates where freight complexity is highest and
+        Eliv Logistics operates where freight complexity is highest and
         reliability is essential
       </p>
 

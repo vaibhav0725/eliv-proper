@@ -6,48 +6,34 @@ import { useState } from "react";
 
 const stories = [
   {
-    date: "September 24, 2026",
-    title:
-      "China–Australia Ocean Freight: Rates Are Moving Higher — What Importers Need to Know",
-    tag: "Asia Pacific",
+    name: "Reliability",
+    line: "Ensuring on-time delivery with complete documentation.",
     image: "/industry/ocean.jpg",
-    alt: "Container ship at sea",
+    alt: "Container ship at a terminal",
   },
   {
-    date: "September 15, 2026",
-    title:
-      "United Carriers & Christopher Lebon Named 2026 Local Business Awards Finalists",
-    tag: "Featured",
+    name: "Customer-centric",
+    line: "Tailoring solutions to exceed customer expectations.",
     image: "/industry/awards.jpg",
     alt: "Team in a meeting",
   },
   {
-    date: "September 8, 2026",
-    title: "China Set to Open Pinglu Canal – Its New Shortcut to South-East Asia",
-    tag: "Asia Pacific",
+    name: "Global Expertise",
+    line: "Facilitating seamless cross-border logistics.",
     image: "/industry/canal.jpg",
     alt: "Shipping containers at a port",
   },
   {
-    date: "September 6, 2026",
-    title: "UC Courtside Is Here",
-    tag: "Featured",
+    name: "Innovation",
+    line: "Leveraging technology for optimized logistics.",
     image: "/industry/warehouse.jpg",
     alt: "Warehouse aisle",
   },
   {
-    date: "September 3, 2026",
-    title: "United Carriers Achieves Australian Trusted Trader Accreditation",
-    tag: "Featured",
+    name: "Sustainability",
+    line: "Committing to eco-friendly and ethical practices.",
     image: "/industry/accreditation.jpg",
     alt: "People reviewing documents",
-  },
-  {
-    date: "September 1, 2026",
-    title: "UC Market Update China - September",
-    tag: "Market Updates",
-    image: "/industry/market.jpg",
-    alt: "Cargo ship near port",
   },
 ];
 
@@ -56,49 +42,50 @@ export function IndustryMoving() {
   const story = stories[active];
 
   return (
-    <section className="grid grid-cols-1 items-start gap-x-12 gap-y-10 bg-black px-6 py-12 text-white sm:px-10 lg:h-svh lg:min-h-[760px] lg:grid-cols-[minmax(0,1fr)_460px] lg:grid-rows-[auto_minmax(0,1fr)] lg:px-16 lg:pt-16 lg:pb-14">
-      <h2 className="text-[clamp(2.6rem,5.2vw,4.6rem)] leading-[0.9] font-bold tracking-[-0.035em] uppercase lg:whitespace-nowrap">
-        <span className="block text-[#7a7a7a]">What&apos;s moving</span>
-        <span className="block">in your industry</span>
+    <section className="grid grid-cols-1 items-start gap-x-12 gap-y-4 bg-black px-6 py-12 text-white sm:px-10 lg:grid-cols-[minmax(0,1fr)_460px] lg:px-16 lg:pt-16 lg:pb-14">
+      <h2 className="pb-24 text-[clamp(2.6rem,5.2vw,4.6rem)] leading-[0.9] font-bold tracking-[-0.035em] uppercase lg:whitespace-nowrap lg:pb-28">
+        <span className="block text-[#7a7a7a]">Our</span>
+        <span className="block">values</span>
       </h2>
       <div className="lg:pt-2">
         <p className="max-w-[13.5rem] text-[12px] leading-[1.45] text-neutral-400">
-          Stay ahead of the shifts shaping trade across APAC — from regulatory
-          changes to new shipping routes and supply chain trends.
+          On-time delivery, cross-border logistics, and solutions shaped around
+          the customer.
         </p>
         <Link
-          href="/insights"
+          href="/about"
           className="mt-5 inline-flex rounded-full border border-white/50 px-4 py-1.5 text-[11px] tracking-[0.16em] uppercase transition-colors hover:bg-white hover:text-black"
         >
           View all
         </Link>
       </div>
 
-      <ul className="min-w-0 self-end lg:max-w-[680px]">
+      <ul className="min-w-0 lg:max-w-[760px]">
           {stories.map((item, index) => {
             const selected = index === active;
             return (
-              <li key={item.title} className="border-t border-white/15 last:border-b">
+              <li key={item.name} className="border-t border-white/15 last:border-b">
                 <button
                   type="button"
                   onMouseEnter={() => setActive(index)}
                   onFocus={() => setActive(index)}
-                  className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 py-3 text-left"
+                  onClick={() => setActive(index)}
+                  className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 py-3.5 text-left"
                 >
                   <span>
-                    <span className="block text-[10px] tracking-[0.14em] text-neutral-500 uppercase">
-                      {item.date}
+                    <span className="block text-[13px] tracking-[0.14em] text-neutral-500 uppercase">
+                      {item.name}
                     </span>
                     <span
-                      className={`mt-1 block truncate text-[14px] ${
+                      className={`mt-1.5 block text-lg leading-snug ${
                         selected ? "text-white" : "text-white/85"
                       }`}
                     >
-                      {item.title}
+                      {item.line}
                     </span>
                   </span>
-                  <span className="pt-5 text-[10px] tracking-[0.12em] text-neutral-500 uppercase">
-                    {item.tag}
+                  <span className="pt-6 text-[13px] tracking-[0.12em] text-neutral-500 uppercase">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </button>
               </li>
@@ -106,7 +93,7 @@ export function IndustryMoving() {
           })}
         </ul>
 
-        <div className="relative aspect-[4/3] w-full self-end overflow-hidden bg-neutral-900">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-900">
           {stories.map((item, index) => (
             <Image
               key={item.image}
@@ -119,7 +106,7 @@ export function IndustryMoving() {
               }`}
             />
           ))}
-          <span className="sr-only">{story.title}</span>
+          <span className="sr-only">{story.name}</span>
         </div>
     </section>
   );

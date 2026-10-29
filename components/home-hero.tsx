@@ -2,7 +2,7 @@ import Link from "next/link";
 import { HomeGlobe } from "@/components/home-globe";
 
 const news =
-  "News: UC Courtside is here.   ·   China–Australia ocean freight: rates are moving higher.   ·   United Carriers named 2026 Local Business Awards finalists.   ·   ";
+  "Eliv Logistics · Five Greentree Centre, Marlton, NJ · +1 (646) 249-8054 · info@elivlogistics.com · China–Australia ocean freight: rates are moving higher.   ·   ";
 
 export function HomeHero() {
   return (

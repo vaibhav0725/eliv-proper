@@ -1,13 +1,18 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
 import { TableOfContents, type TocItem } from "@/components/legal/table-of-contents";
 import { LegalPlaceholder } from "@/components/legal/legal-placeholder";
 import { PrintButton } from "@/components/legal/print-button";
+import { breadcrumbJsonLd, contact, headquarters, legalName, pageMetadata, siteName } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions | E-Liv Logistics",
-  description:
-    "E-Liv Logistics Terms & Conditions of Website Use and Service. Governing freight forwarding, cargo liability, customer responsibilities, claims procedure, dispute resolution, and website terms.",
-};
+const title = "Terms and Conditions";
+const description =
+  "Terms of website use and service for Eliv Logistics, covering freight forwarding, cargo liability, customer responsibilities, claims, and dispute resolution.";
+
+export const metadata = pageMetadata({
+  title,
+  description,
+  path: "/terms",
+});
 
 const tocItems: TocItem[] = [
   { id: "acceptance", title: "Acceptance", number: 1 },
@@ -28,6 +33,13 @@ const tocItems: TocItem[] = [
 
 export default function TermsPage() {
   return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: title, path: "/terms" },
+        ])}
+      />
         <div className="bg-white text-neutral-900 min-h-screen">
           <div className="mx-auto w-full max-w-[1440px] px-6 pt-24 pb-20 sm:px-10 sm:pt-28 lg:px-14 lg:pt-32">
             <div className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] xl:grid-cols-[300px_minmax(0,1fr)] lg:gap-14 xl:gap-16">
@@ -35,7 +47,7 @@ export default function TermsPage() {
               <TableOfContents
                 items={tocItems}
                 currentPath="/terms"
-                contactEmail="legal@elivlogistics.com"
+                contactEmail={contact.email}
               />
 
               {/* Right side: Main content with main heading */}
@@ -56,7 +68,7 @@ export default function TermsPage() {
                   </div>
 
                   <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-neutral-950 sm:text-4xl lg:text-5xl leading-[1.15]">
-                    E-Liv Logistics — Terms &amp; Conditions of Website Use and Service
+                    {siteName} — Terms &amp; Conditions of Website Use and Service
                   </h1>
                 </header>
 
@@ -101,7 +113,7 @@ export default function TermsPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p>
-                        E-Liv Logistics acts as a freight forwarder, transportation broker and logistics coordinator. Unless we expressly agree in writing to act as carrier, we do not own or operate the trucks, vessels or aircraft that move your cargo; we arrange carriage with independent carriers, warehouses and agents as your agent.
+                        {legalName}, operating as {siteName}, acts as a freight forwarder, transportation broker and logistics coordinator. Unless we expressly agree in writing to act as carrier, we do not own or operate the trucks, vessels or aircraft that move your cargo; we arrange carriage with independent carriers, warehouses and agents as your agent.
                       </p>
                       <p>
                         <LegalPlaceholder>[FMCSA MC No. ____; USDOT No. ____; FMC OTI No. ____, if applicable.]</LegalPlaceholder>
@@ -323,13 +335,13 @@ export default function TermsPage() {
                           Parties will first try to resolve disputes through good-faith negotiation for 30 days after written notice.
                         </li>
                         <li>
-                          Unresolved disputes go to binding arbitration under <LegalPlaceholder>[the AAA Commercial Rules / ICC Rules]</LegalPlaceholder> seated in <LegalPlaceholder>[city]</LegalPlaceholder>, in English, by one arbitrator.
+                          Unresolved disputes go to binding arbitration under <LegalPlaceholder>[the AAA Commercial Rules / ICC Rules]</LegalPlaceholder> seated in Marlton, New Jersey, in English, by one arbitrator.
                         </li>
                         <li>
                           Either party may seek urgent injunctive relief in court.
                         </li>
                         <li>
-                          These Terms are governed by the laws of <LegalPlaceholder>[State of ___, USA]</LegalPlaceholder>, excluding its conflict-of-law rules, unless mandatory law requires otherwise.
+                          These Terms are governed by the laws of the State of New Jersey, USA, excluding its conflict-of-law rules, unless mandatory law requires otherwise.
                         </li>
                         <li>
                           Any lawsuit against us must be started within <LegalPlaceholder>[1 year]</LegalPlaceholder> of the cause of action.
@@ -367,15 +379,14 @@ export default function TermsPage() {
                     </div>
                     <div className="mt-4 space-y-4">
                       <p className="rounded-xl border border-black/8 bg-[#fbfbfa] p-5">
-                        <LegalPlaceholder>[Entity name]</LegalPlaceholder>, <LegalPlaceholder>[address]</LegalPlaceholder> ·{" "}
-                        <LegalPlaceholder>
-                          [<a
-                            href="mailto:legal@elivlogistics.com"
-                            className="underline decoration-neutral-400 hover:decoration-neutral-950"
-                          >
-                            legal@elivlogistics.com
-                          </a>]
-                        </LegalPlaceholder> · <LegalPlaceholder>[phone]</LegalPlaceholder>
+                        {legalName}, {headquarters.singleLine} ·{" "}
+                        <a
+                          href={`mailto:${contact.email}`}
+                          className="underline decoration-neutral-400 hover:decoration-neutral-950"
+                        >
+                          {contact.email}
+                        </a>{" "}
+                        · {contact.telephoneDisplay}
                       </p>
                     </div>
                   </section>
@@ -385,5 +396,6 @@ export default function TermsPage() {
             </div>
           </div>
         </div>
-        );
+    </>
+  );
 }

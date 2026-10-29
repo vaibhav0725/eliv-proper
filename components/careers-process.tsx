@@ -20,13 +20,13 @@ const steps = [
     title: "Second Interview",
     body: "A deeper dive into how you work. This may include role-specific exercises designed to reflect real situations you’d encounter in the role.",
     image: "/careers/exercise.webp",
-    alt: "A United Carriers truck at night",
+    alt: "An Eliv Logistics truck at night",
   },
   {
     title: "Meet the Founder",
     body: "A conversation with our Founder and Managing Director to give you a clear sense of our direction, values, and leadership.",
     image: "/careers/founder.png",
-    alt: "The United Carriers team standing in front of a truck",
+    alt: "The Eliv Logistics team standing in front of a truck",
   },
   {
     title: "Offer",

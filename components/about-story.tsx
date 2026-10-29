@@ -15,14 +15,14 @@ const chapters = [
   {
     index: "02",
     title: "The vision",
-    body: "Freight across the region that is as clear to the customer as it is to the people moving it.",
+    body: "Our vision is to evolve E-Liv Logistics into a global logistics powerhouse, seamlessly connecting businesses across continents with reliability, innovation, and trust.",
     image: "/about/aircraft.jpg",
     alt: "A wide lake between mountain ridges",
   },
   {
     index: "03",
     title: "The strategy",
-    body: "Stay on the lanes we run, keep the file on one desk, and back each move with the network, the systems, and the Trusted Trader standard.",
+    body: "Stay on the lanes we run, keep the file on one desk, and back each move with the network and the systems.",
     image: "/about/warehouse.jpg",
     alt: "Aerial view of traffic moving through a city",
   },

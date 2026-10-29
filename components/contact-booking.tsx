@@ -1,33 +1,22 @@
 import { AppointmentForm } from "@/components/appointment-form";
+import { contact, legalName } from "@/lib/seo";
+
+const mapQuery = "Five Greentree Centre, STE. 104, Marlton, NJ 08053";
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&output=embed`;
+const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
 const locations = [
   {
-    city: "Melbourne",
-    label: "Head office",
-    lines: ["2A International Square,", "Tullamarine VIC 3043,", "Australia."],
-  },
-  {
-    city: "Auckland",
-    label: "New Zealand office",
-    lines: ["Level 1, 84 Harris Road,", "East Tamaki, Auckland 2013,", "New Zealand."],
-  },
-  {
-    city: "Hong Kong",
-    label: "Hong Kong office",
+    city: "Marlton",
+    label: legalName,
     lines: [
-      "Flat A, 2F, Tontex industrial building,",
-      "2-4 Sheung Hei Street, San Po Kong,",
-      "Kowloon, Hong Kong.",
+      "Five Greentree Centre, STE. 104,",
+      "Marlton, NJ 08053,",
+      "USA.",
     ],
-  },
-  {
-    city: "Shenzhen",
-    label: "China office",
-    lines: [
-      "Room 2001, Building B, 475 Bulong Rd,",
-      "Bantian, Longgang,",
-      "Shenzhen, China.",
-    ],
+    phone: contact.telephoneDisplay,
+    phoneHref: contact.telephoneHref,
+    email: contact.email,
   },
 ];
 
@@ -35,7 +24,8 @@ export function ContactBooking() {
   return (
     <section className="bg-[#f3f1ec] text-neutral-950">
       <div className="mx-auto w-full max-w-[1440px] px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
-        <div className="lg:grid lg:grid-cols-[minmax(260px,0.78fr)_minmax(0,1.22fr)] lg:items-start lg:gap-x-16 xl:gap-x-24">
+        <div className="lg:grid lg:grid-cols-[minmax(260px,0.78fr)_minmax(0,1.22fr)] lg:items-stretch lg:gap-x-16 xl:gap-x-24">
+          <div className="flex h-full flex-col">
           <div className="max-w-md">
             <p className="text-[11px] font-medium tracking-[0.22em] text-neutral-500 uppercase">
               Appointments
@@ -51,15 +41,11 @@ export function ContactBooking() {
             </p>
           </div>
 
-          <div className="mt-10 bg-white px-6 py-8 shadow-[0_24px_70px_rgba(16,18,24,0.06)] sm:px-10 sm:py-12 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:px-12 lg:py-14">
-            <AppointmentForm />
-          </div>
-
-          <div className="mt-16 max-w-md lg:mt-20">
+          <div className="mt-10 flex min-h-0 flex-1 flex-col lg:mt-14">
             <p className="text-[11px] font-medium tracking-[0.22em] text-neutral-500 uppercase">
               Offices
             </p>
-            <ul className="mt-6 border-t border-neutral-950/12">
+            <ul className="mt-6 max-w-md border-t border-neutral-950/12">
               {locations.map((office, index) => (
                 <li
                   key={office.city}
@@ -82,10 +68,41 @@ export function ContactBooking() {
                         </span>
                       ))}
                     </address>
+                    <p className="mt-2 text-sm leading-6 text-neutral-600">
+                      <a href={office.phoneHref} className="hover:text-neutral-950">
+                        {office.phone}
+                      </a>
+                      {" · "}
+                      <a href={`mailto:${office.email}`} className="hover:text-neutral-950">
+                        {office.email}
+                      </a>
+                    </p>
                   </div>
                 </li>
               ))}
             </ul>
+            <a
+              href={mapHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex text-[11px] tracking-[0.14em] text-neutral-500 uppercase underline decoration-neutral-300 underline-offset-4 hover:text-neutral-950"
+            >
+              Open in Google Maps
+            </a>
+            <div className="relative mt-4 h-52 max-w-md overflow-hidden bg-neutral-200 lg:h-auto lg:min-h-0 lg:flex-1">
+              <iframe
+                title="Map of the Eliv Logistics office in Marlton, New Jersey"
+                src={mapSrc}
+                className="h-full w-full border-0 lg:absolute lg:inset-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+          </div>
+
+          <div className="mt-10 h-full bg-white px-6 py-8 shadow-[0_24px_70px_rgba(16,18,24,0.06)] sm:px-10 sm:py-12 lg:mt-0 lg:px-12 lg:py-14">
+            <AppointmentForm />
           </div>
         </div>
       </div>
