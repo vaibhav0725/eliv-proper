@@ -2,7 +2,7 @@ import { JsonLd } from "@/components/json-ld";
 import { HomeHero } from "@/components/home-hero";
 import { HomeIndustries } from "@/components/home-industries";
 import { HomeLanes } from "@/components/home-lanes";
-import { HomePartners } from "@/components/home-partners";
+// import { HomePartners } from "@/components/home-partners";
 import { HomeServices } from "@/components/home-services";
 import { JourneyShowcase } from "@/components/sections/journey-showcase";
 import { absoluteUrl, defaultTitle, pageMetadata, siteDescription, siteUrl } from "@/lib/seo";
@@ -33,7 +33,7 @@ export default function HomePage() {
       <HomeLanes />
       <HomeServices />
       <HomeIndustries />
-      <HomePartners />
+      {/* <HomePartners /> */}
     </>
   );
 }
