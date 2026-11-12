@@ -16,6 +16,9 @@ import { decal, type Mats } from "./models";
 /* missing.                                                            */
 /* ------------------------------------------------------------------ */
 
+/** Where the parcel is while his hands are on it, in the courier's own space (metres). */
+export type GripTarget = { center: THREE.Vector3; yaw: number };
+
 let asset: THREE.Object3D | null = null;
 export const hasCourierAsset = () => asset !== null;
 
@@ -194,6 +197,25 @@ export function buildRiggedCourier(M: Mats) {
   const hands = new THREE.Object3D();
   root.add(hands);
 
+  // ---- sole contact points: heel, ball and toe tip of each shoe, fixed to their bones ----
+  // Each is the rest-pose spot on the floor under the bone, so whichever part of the
+  // foot is lowest at any moment is what gets planted on the ground.
+  const groundY = box.min.y; // floor, in model units
+  const FLOOR_LIFT = 0.025 / s; // sits just above the road surface (y = 0.03 m)
+  const soles: { node: Node; local: THREE.Vector3 }[] = [];
+  for (const sd of ["Left", "Right"]) {
+    const add = (key: string, back = 0) => {
+      const n = node(sd + key);
+      const off = new THREE.Vector3(0, groundY - n.wp0.y, -back);
+      soles.push({ node: n, local: off.applyQuaternion(n.wq0.clone().invert()) });
+    };
+    add("Foot");
+    add("Foot", 7); // heel
+    add("ToeBase");
+    add("Toe_End");
+  }
+  const _sp = new THREE.Vector3();
+
   // ---- scratch ----
   const wq = new Map<Node, THREE.Quaternion>();
   const wp = new Map<Node, THREE.Vector3>();
@@ -229,7 +251,8 @@ export function buildRiggedCourier(M: Mats) {
     out.fore.subVectors(T, E).normalize();
   };
 
-  const pose = (stride: number, carry: number, lean: number) => {
+  const gripOff = new THREE.Vector3();
+  const pose = (stride: number, carry: number, lean: number, grip?: GripTarget) => {
     const ph = (stride / 0.78) * Math.PI;
 
     // legs: same gait as the procedural courier, as absolute directions
@@ -240,9 +263,9 @@ export function buildRiggedCourier(M: Mats) {
       const k = -(0.06 + Math.max(0, Math.cos(p)) * 0.62) - lean * 0.6;
       leg.push({ a, b: a + k });
     }
-    // pelvis height: the lowest ankle stays on the floor
+    // first guess at pelvis height; refined below so the lowest part of either shoe touches the floor
     const drop = Math.max(...leg.map((l) => Lt * Math.cos(l.a) + Ls * Math.cos(l.b)));
-    const hipsY = footY0 + drop;
+    const hipsGuess = footY0 + drop;
 
     const L = lean * 0.62 + 0.04 * (1 - lean); // forward lean of the chest
     const sway = Math.sin(ph) * 0.07 * (1 - lean);
@@ -270,9 +293,10 @@ export function buildRiggedCourier(M: Mats) {
       targets.set(sd + "Shoulder", dirChar(0, -0.1, sg));
     }
 
+    const lc = Math.cos(L), ls = Math.sin(L);
+    const apply = (hipsY: number) => {
     // chest pivot and the parcel anchor, in character metres
     const pivotY = hipsY * s;
-    const lc = Math.cos(L), ls = Math.sin(L);
     const upperToChar = (x: number, y: number, z: number, out: THREE.Vector3) =>
       out.set(x * lc + y * ls, -x * ls + y * lc + pivotY, z);
     upperToChar(0.41, 0.3, 0, hands.position);
@@ -304,7 +328,12 @@ export function buildRiggedCourier(M: Mats) {
           // shoulder joint is this bone's origin: aim the IK once here
           const ik = ikDirs[armSide];
           if (carry > 0) {
-            upperToChar(0.4, 0.16, sg * 0.25, _a);
+            if (grip) {
+              // hands cup the lower sides of the parcel wherever it is
+              gripOff.set(-0.01, -0.14, sg * 0.25).applyAxisAngle(Y, grip.yaw);
+              _a.copy(grip.center).add(gripOff);
+              _a.y -= holder.position.y;
+            } else upperToChar(0.4, 0.16, sg * 0.25, _a);
             ikPoint.copy(_a).applyQuaternion(Q0i).multiplyScalar(1 / s);
             solveArm(p, ikPoint, armPole[armSide].clone().applyQuaternion(Q0i), ik);
           }
@@ -330,8 +359,25 @@ export function buildRiggedCourier(M: Mats) {
       n.bone.quaternion.copy(local);
       q.copy(pq).multiply(local);
     }
+    };
+
+    apply(hipsGuess);
+    let lowest = Infinity;
+    for (const { node: n, local } of soles) {
+      _sp.copy(local).applyQuaternion(wq.get(n)!).add(wp.get(n)!);
+      lowest = Math.min(lowest, _sp.y);
+    }
+    apply(hipsGuess + (groundY + FLOOR_LIFT - lowest));
+  };
+
+  /** Midpoint of both hands, in the courier's space — where a held parcel's lower sides are. */
+  const lw = node("LeftHand"), rw = node("RightHand");
+  const gripCenter = (out: THREE.Vector3) => {
+    out.copy(wp.get(lw)!).add(wp.get(rw)!).multiplyScalar(0.5).applyQuaternion(Q0).multiplyScalar(s);
+    out.y += holder.position.y;
+    return out;
   };
 
   pose(0, 1, 0);
-  return { root, pose, hands };
+  return { root, pose, hands, gripCenter, followsGrip: true as boolean };
 }

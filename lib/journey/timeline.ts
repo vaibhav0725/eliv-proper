@@ -2,23 +2,15 @@ import gsap from "gsap";
 import { CONTAINER, SHIP, STACKER_SPREADER_DROP, TRAILER_DECK, rowZ } from "./models";
 import { JourneyScene, JourneyState, WORLD } from "./scene";
 
+import { CHAPTERS, PROLOGUE } from "./chapters";
+
+export { CHAPTERS, PROLOGUE };
+
 /**
- * The film, in story-seconds. Scroll position maps linearly onto this
+ * The 3D film, in story-seconds. Scroll position maps linearly onto this
  * timeline; every tween writes plain numbers into `state`, and the scene is
  * re-derived from that state each frame — so scrubbing backwards is exact.
  */
-/** Length of the courier prologue; the rest of the film starts here. */
-export const PROLOGUE = 17;
-
-export const CHAPTERS = [
-  { at: 0, key: "pickup", label: "Pickup" },
-  { at: PROLOGUE, key: "yard", label: "Yard" },
-  { at: PROLOGUE + 19, key: "load", label: "Load" },
-  { at: PROLOGUE + 44, key: "road", label: "Road" },
-  { at: PROLOGUE + 70, key: "port", label: "Port" },
-  { at: PROLOGUE + 91, key: "sea", label: "Sea" },
-] as const;
-
 export function buildTimeline(scene: JourneyScene, state: JourneyState) {
   const tl = gsap.timeline({ paused: true, defaults: { ease: "sine.inOut" } });
   tl.add(buildPrologue(state), 0);
@@ -96,7 +88,7 @@ export function buildTimeline(scene: JourneyScene, state: JourneyState) {
 function buildPrologue(state: JourneyState) {
   const tl = gsap.timeline({ defaults: { ease: "sine.inOut" } });
   // stride is the distance walked; it advances with position so legs never slide
-  const door = { x: 6.78, z: -5.85 }; // just outside the doors, facing the front step of cargo
+  const door = { x: 6.3, z: -5.85 }; // just outside the doors, facing the front step of cargo
   const approach = Math.hypot(door.x - state.courierX, door.z - state.courierZ);
   state.courierYaw = Math.atan2(-(door.z - state.courierZ), door.x - state.courierX);
   let stride = approach;
@@ -106,7 +98,7 @@ function buildPrologue(state: JourneyState) {
   tl.to(state, { courierX: door.x, courierZ: door.z, stride, duration: 6.4 }, 0)
     .to(state, { courierYaw: Math.PI, stride: (stride += 0.5), duration: 1 }, 5.9)
     // lean in and slide the parcel onto the container floor
-    .to(state, { lean: 0.55, duration: 1.4 }, 7.1)
+    .to(state, { lean: 0.8, duration: 1.4 }, 7.1)
     .to(state, { place: 1, duration: 2.2, ease: "power1.inOut" }, 7.3)
     .to(state, { lean: 0, carry: 0, duration: 1.1 }, 9.6)
     // step back, the doors swing shut

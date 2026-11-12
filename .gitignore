@@ -42,3 +42,6 @@ next-env.d.ts
 
 # source 3D assets (the web build uses public/models/courier.glb)
 *.fbx
+
+# source video for the journey opening (the page uses the frames in public/journey/intro)
+/final.mp4

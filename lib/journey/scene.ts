@@ -91,6 +91,9 @@ const GROUND_NIGHT = new THREE.Color(0x10131c);
 
 export class JourneyScene {
   readonly renderer: THREE.WebGLRenderer;
+  /** Render resolution scale; the page lowers it when frames run long and restores it when there is headroom. */
+  pixelRatio = 1;
+  maxPixelRatio = 1;
   readonly scene = new THREE.Scene();
   readonly camera = new THREE.PerspectiveCamera(35, 1, 1.5, 2500); // tight range = more depth precision, no flicker
   readonly path: THREE.CatmullRomCurve3;
@@ -129,13 +132,17 @@ export class JourneyScene {
   private tmp = { k: new THREE.Vector3(), f: new THREE.Vector3(), q: new THREE.Vector3() };
 
   constructor(canvas: HTMLCanvasElement, private opts: { mobile: boolean }) {
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance", alpha: false });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, opts.mobile ? 1.5 : 2));
+    const dpr = window.devicePixelRatio || 1;
+    // MSAA on a hi-dpi canvas costs a lot and the extra pixels already hide the jaggies
+    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: dpr < 1.75, powerPreference: "high-performance", alpha: false });
+    this.maxPixelRatio = Math.min(dpr, opts.mobile ? 1.25 : 1.5);
+    this.pixelRatio = this.maxPixelRatio;
+    this.renderer.setPixelRatio(this.pixelRatio);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
 
     const pmrem = new THREE.PMREMGenerator(this.renderer);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -404,6 +411,14 @@ export class JourneyScene {
     };
   }
 
+  setPixelRatio(r: number) {
+    const next = Math.min(this.maxPixelRatio, Math.max(0.7, r));
+    if (Math.abs(next - this.pixelRatio) < 0.01) return;
+    this.pixelRatio = next;
+    this.renderer.setPixelRatio(next);
+    this.renderer.setSize(this.width, this.height, false);
+  }
+
   resize(w: number, h: number) {
     this.width = w;
     this.height = h;
@@ -472,6 +487,10 @@ export class JourneyScene {
 
   private pa = new THREE.Vector3();
   private pb = new THREE.Vector3();
+  private pc = new THREE.Vector3();
+  private pd = new THREE.Vector3();
+  private pq = new THREE.Quaternion();
+  private pq2 = new THREE.Quaternion();
   private updatePrologue(S: JourneyState) {
     const c = this.courier;
     c.root.position.set(S.courierX, 0, S.courierZ);
@@ -480,24 +499,49 @@ export class JourneyScene {
     c.pose(S.stride, S.carry, S.lean);
     this.heroCtl.setDoors(S.doors);
 
-    // parcel: carried → slid onto the container floor → travels with the container
+    // parcel: carried → pushed onto the cargo step → travels with the container.
+    // While it moves his hands stay on it: the pose is solved against the parcel's
+    // position, and the parcel then rides at his actual hands.
     if (S.place >= 1) {
       if (this.parcel.parent !== this.heroCtl.parcelSocket) {
+        // hand it over to the container without changing how it sits in the world
+        this.parcel.getWorldQuaternion(this.pq);
         this.heroCtl.parcelSocket.add(this.parcel);
+        this.heroCtl.parcelSocket.getWorldQuaternion(this.pq2);
         this.parcel.position.set(0, 0, 0);
-        this.parcel.rotation.set(0, 0, 0);
+        this.parcel.quaternion.copy(this.pq2.invert().multiply(this.pq));
       }
       return;
     }
     if (this.parcel.parent !== this.scene) this.scene.add(this.parcel);
     this.scene.updateMatrixWorld();
-    c.hands.getWorldPosition(this.pa);
+    c.hands.getWorldPosition(this.pa); // where it rests against his body
     this.pa.y -= 0.21;
     this.heroCtl.parcelSocket.getWorldPosition(this.pb);
     const k = THREE.MathUtils.smootherstep(S.place, 0, 1);
-    this.parcel.position.lerpVectors(this.pa, this.pb, k);
-    this.parcel.position.y += Math.sin(k * Math.PI) * 0.12;
-    this.parcel.rotation.set(0, S.courierYaw * (1 - k), 0);
+    // path: lifts a little, then pushes in level with the step
+    this.pc.lerpVectors(this.pa, this.pb, k);
+    this.pc.y += Math.sin(k * Math.PI) * 0.1;
+    this.parcel.rotation.set(0, S.courierYaw, 0);
+
+    if (k > 0 && c.followsGrip) {
+      // hands go to where the parcel should be…
+      c.root.updateMatrixWorld();
+      this.pd.copy(this.pc);
+      this.pd.y += 0.21; // parcel centre
+      c.root.worldToLocal(this.pd);
+      c.pose(S.stride, S.carry, S.lean, { center: this.pd, yaw: 0 });
+      c.root.updateMatrixWorld();
+      // …and the parcel rides at the hands (it only leaves them on the last stretch, as it is pushed home)
+      c.gripCenter(this.pd);
+      this.pd.x += 0.01;
+      this.pd.y += 0.14;
+      c.root.localToWorld(this.pd);
+      this.pd.y -= 0.21;
+      this.parcel.position.lerpVectors(this.pd, this.pc, THREE.MathUtils.smoothstep(k, 0.88, 1));
+    } else {
+      this.parcel.position.copy(this.pc);
+    }
   }
 
   /** Day → night: sky, sun → moon, exposure, and the lights that switch on after dusk. */

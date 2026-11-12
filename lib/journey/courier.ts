@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { headTexture, decalTexture } from "./textures";
 import { decal, type Mats } from "./models";
-import { buildRiggedCourier, hasCourierAsset } from "./courier-rig";
+import { buildRiggedCourier, hasCourierAsset, type GripTarget } from "./courier-rig";
 
 /* ------------------------------------------------------------------ */
 /* Delivery courier                                                    */
@@ -585,7 +585,8 @@ function buildProceduralCourier(M: Mats) {
   const qIkSh = new THREE.Quaternion(), qIkEl = new THREE.Quaternion();
   const eul = new THREE.Euler();
 
-  const pose = (stride: number, carry: number, lean: number) => {
+  const pose = (stride: number, carry: number, lean: number, grip?: GripTarget) => {
+    void grip; // this fallback courier keeps the parcel on his chest
     const ph = (stride / 0.78) * Math.PI;
     for (let i = 0; i < 2; i++) {
       const p = ph + i * Math.PI;
@@ -620,6 +621,7 @@ function buildProceduralCourier(M: Mats) {
       }
     }
   };
+  const gripCenter = (out: THREE.Vector3) => out.copy(hands.position);
   pose(0, 1, 0);
-  return { root, pose, hands };
+  return { root, pose, hands, gripCenter, followsGrip: false as boolean };
 }
