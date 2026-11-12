@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# source 3D assets (the web build uses public/models/courier.glb)
+*.fbx

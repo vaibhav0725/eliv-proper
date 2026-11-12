@@ -96,6 +96,8 @@ export function JourneyShowcase() {
       const [{ JourneyScene }, { buildTimeline, CHAPTERS }] = await Promise.all([
         import("@/lib/journey/scene"),
         import("@/lib/journey/timeline"),
+        // the courier's 3D model; if it can't load, the scene falls back to the built-in courier
+        import("@/lib/journey/courier-rig").then((m) => m.loadCourierAsset()),
       ]);
       if (disposed || !canvasRef.current || !sectionRef.current) return;
 
